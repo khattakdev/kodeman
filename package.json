@@ -4,14 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pretest": "eslint . --fix",
+    "prepare": "eslint . --fix",
     "dev:front": "cd frontend && npm run dev",
     "dev:back": "cd backend && npm start"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run pretest"
-    }
   },
   "repository": {
     "type": "git",

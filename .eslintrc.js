@@ -20,7 +20,7 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
-    'import/no-unresolved': 'warn',
+    'import/no-unresolved': 'off', // @TODO: have to fix this later
   },
   plugins: ['prettier'],
 };
