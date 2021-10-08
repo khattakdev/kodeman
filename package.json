@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "dev:front": "cd frontend && npm run dev",
+    "dev:back": "cd backend && npm start"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/khattakdev/kodeman.git"
