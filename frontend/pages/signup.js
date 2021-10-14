@@ -13,12 +13,10 @@ const signup  = () => {
         e.preventDefault();
         if(!username || !password || !confirmPassword)
         {
-            // e.preventDefault();
             setIsError(true)
             return
         }
         else{
-            // e.preventDefault();
             router.push('/login')
         }
     }

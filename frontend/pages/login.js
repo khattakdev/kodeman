@@ -12,12 +12,10 @@ const login  = () => {
         e.preventDefault();
         if(!username || !password)
         {
-            // e.preventDefault();
             setIsError(true)
             return
         }
         else{
-            // e.preventDefault();
             router.push('/dashboard')
         }
     }
@@ -41,7 +39,7 @@ const login  = () => {
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                         Email
                     </label>
-                    <input className="shadow appearance-none border rounded w-80 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" name="username" type="text" onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
+                    <input className="shadow appearance-none border rounded w-80 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" name="username" type="text" onChange={(e) => setUsername(e.target.value)} placeholder="Email" />
                     </div>
                     <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
