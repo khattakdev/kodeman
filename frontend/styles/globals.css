@@ -2,7 +2,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-<<<<<<< HEAD
 
 html,
 body {
@@ -20,6 +19,3 @@ a {
 * {
   box-sizing: border-box;
 }
-=======
-
->>>>>>> 4c2b5e2 (adding header component)
