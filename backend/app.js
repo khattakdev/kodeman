@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 const fastify = require('fastify')({
   logger: true,
 });
@@ -12,12 +13,9 @@ fastify.register(require('./routes/user'), { prefix: 'user' });
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(
-      'mongodb://127.0.0.1:27017/kodeman?directConnection=true&serverSelectionTimeoutMS=2000',
-      {
-        useNewUrlParser: true,
-      }
-    );
+    await mongoose.connect('process.env.MONGO_URI', {
+      useNewUrlParser: true,
+    });
     fastify.log.info('Connected To Database');
     fastify.listen(3001, (err, address) => {
       if (err) {
