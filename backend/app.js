@@ -8,10 +8,12 @@ fastify.get('/', async (request, reply) => {
   return { hello: 'world' };
 });
 
+fastify.register(require('./routes/user'), { prefix: 'user' });
+
 const connectDB = async () => {
   try {
     await mongoose.connect(
-      'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000',
+      'mongodb://127.0.0.1:27017/kodeman?directConnection=true&serverSelectionTimeoutMS=2000',
       {
         useNewUrlParser: true,
       }
