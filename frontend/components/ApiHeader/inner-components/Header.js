@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Parameters = () => {
+const Headers = () => {
   const [queryParam, setQueryParam] = useState([]);
 
   function addNewParam() {
@@ -11,8 +11,8 @@ const Parameters = () => {
   return (
     <div>
       <div className="flex flex-row justify-between">
-        <h1 className="text-gray-500 px-4 flex content-start">
-          Query parameter
+        <h1 className="text-gray-500  px-4 flex content-start">
+          Header List
         </h1>
         <div className="flex justify-self-end">
           <img
@@ -93,5 +93,5 @@ const Parameters = () => {
     </div>
   );
 };
-export default Parameters;
+export default Headers;
 

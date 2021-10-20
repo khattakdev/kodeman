@@ -30,18 +30,6 @@ const ApiHeader = (props) => {
         >
           Authorization
         </li>
-        <li
-          className="p-2 hover:text-white hover:underline cursor-pointer"
-          onClick={() => handleTab('pre-request')}
-        >
-          Pre-request Script
-        </li>
-        <li
-          className="p-2 hover:text-white hover:underline cursor-pointer"
-          onClick={() => handleTab('tests')}
-        >
-          Tests
-        </li>
       </ul>
     </div>
   );
