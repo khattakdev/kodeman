@@ -11,15 +11,13 @@ const Headers = () => {
   return (
     <div>
       <div className="flex flex-row justify-between">
-        <h1 className="text-gray-500  px-4 flex content-start">
-          Header List
-        </h1>
+        <h1 className="text-gray-500  px-4 flex content-start">Header List</h1>
         <div className="flex justify-self-end">
           <img
             src="delete-icon.svg"
             alt="delete"
             className="m-2 mx-4 h-6 w-6 cursor-pointer"
-            onClick={() => (setQueryParam([]))}
+            onClick={() => setQueryParam([])}
           />
           <img
             src="edit note.svg"
@@ -68,11 +66,11 @@ const Headers = () => {
                   }}
                 />
                 <div className="p-2">
-                <img
-                  src="delete-icon.svg"
-                  alt="delete"
-                  className="border border-gray-600 m-2 h-8 w-8 cursor-pointer"
-                />
+                  <img
+                    src="delete-icon.svg"
+                    alt="delete"
+                    className="border border-gray-600 m-2 h-8 w-8 cursor-pointer"
+                  />
                 </div>
               </div>
             ))
@@ -94,4 +92,3 @@ const Headers = () => {
   );
 };
 export default Headers;
-

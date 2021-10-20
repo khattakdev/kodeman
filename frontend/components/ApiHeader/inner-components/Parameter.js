@@ -19,7 +19,7 @@ const Parameters = () => {
             src="delete-icon.svg"
             alt="delete"
             className="m-2 mx-4 h-6 w-6 cursor-pointer"
-            onClick={() => (setQueryParam([]))}
+            onClick={() => setQueryParam([])}
           />
           <img
             src="edit note.svg"
@@ -68,11 +68,11 @@ const Parameters = () => {
                   }}
                 />
                 <div className="p-2">
-                <img
-                  src="delete-icon.svg"
-                  alt="delete"
-                  className="border border-gray-600 m-2 h-8 w-8 cursor-pointer"
-                />
+                  <img
+                    src="delete-icon.svg"
+                    alt="delete"
+                    className="border border-gray-600 m-2 h-8 w-8 cursor-pointer"
+                  />
                 </div>
               </div>
             ))
@@ -94,4 +94,3 @@ const Parameters = () => {
   );
 };
 export default Parameters;
-
