@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import axiosInstance from '../axios';
 
 const login = () => {
   const [username, setUsername] = useState();
@@ -8,13 +9,28 @@ const login = () => {
   const [iserror, setIsError] = useState(false);
   const router = useRouter();
 
-  function checkAuthentication(e) {
+  async function loginHandler(e) {
     e.preventDefault();
+
     if (!username || !password) {
       setIsError(true);
       return;
     }
-    router.push('/dashboard');
+
+    const data = {
+      email: username,
+      password,
+    };
+    const res = await axiosInstance.post('/user/login', data);
+    console.log(res);
+    if (res.status === 200) {
+      const tokenToJSON = JSON.stringify(res.data.token);
+      localStorage.setItem('token', tokenToJSON);
+      router.push('/dashboard');
+      return;
+    }
+
+    console.log('Something went wrong');
   }
 
   return (
@@ -31,7 +47,7 @@ const login = () => {
         <div className="mt-10 mb-10 h-5/6  bg-white shadow-2xl flex flex-col justify-around ">
           <form
             className="bg-white rounded px-8 pt-6 pb-8 mb-4"
-            onSubmit={checkAuthentication}
+            onSubmit={loginHandler}
           >
             <div className="mb-12 ">
               <h1 className=" text-5xl">Login your Account</h1>
