@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import axiosInstance from '../axios';
 
 const signup = () => {
   const [username, setUsername] = useState();
@@ -9,13 +10,30 @@ const signup = () => {
   const [iserror, setIsError] = useState(false);
   const router = useRouter();
 
-  function checkAuthentication(e) {
+  async function signupHandler(e) {
     e.preventDefault();
+
     if (!username || !password || !confirmPassword) {
       setIsError(true);
       return;
     }
-    router.push('/login');
+
+    const data = {
+      email: username,
+      password,
+      confirmPassword,
+    };
+
+    const res = await axiosInstance.post('/user/register', data);
+    console.log(res);
+    if (res.status === 200) {
+      const tokenToJSON = JSON.stringify(res.data.token);
+      localStorage.setItem('token', tokenToJSON);
+      router.push('/dashboard');
+      return;
+    }
+
+    console.log('Something went wrong!');
   }
 
   return (
@@ -32,7 +50,7 @@ const signup = () => {
         <div className="mt-10 mb-10 h-5/6 w-full bg-white shadow-2xl flex flex-col justify-around ">
           <form
             className="bg-white rounded px-8 pt-6 pb-8 mb-4"
-            onSubmit={checkAuthentication}
+            onSubmit={signupHandler}
           >
             <div className="mb-12 ">
               <h1 className=" text-5xl">Create an Account</h1>
@@ -86,7 +104,7 @@ const signup = () => {
             <div className="mb-4">
               <button
                 className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
+                type="submit"
               >
                 Register
               </button>
