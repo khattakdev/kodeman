@@ -8,7 +8,10 @@ fastify.get('/', async (request, reply) => {
   reply.type('application/json').code(200);
   return { hello: 'world' };
 });
-
+fastify.register(require('fastify-cors'), {
+  origin: '*',
+  methods: ['POST'],
+});
 fastify.register(require('./routes/user'), { prefix: 'user' });
 
 const connectDB = async () => {

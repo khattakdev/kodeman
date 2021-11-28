@@ -59,13 +59,7 @@ const registerUser = {
   schema: {
     body: {
       type: 'object',
-      required: [
-        'firstName',
-        'lastName',
-        'email',
-        'password',
-        'confirmPassword',
-      ],
+      required: ['email', 'password', 'confirmPassword'],
       properties: {
         firstName: { type: 'string' },
         lastName: { type: 'string' },
@@ -77,8 +71,7 @@ const registerUser = {
     },
   },
   handler: async (request, reply) => {
-    const { firstName, lastName, email, password, confirmPassword } =
-      request.body;
+    const { email, password, confirmPassword } = request.body;
 
     try {
       const userExist = await User.findOne({ email });
@@ -97,8 +90,6 @@ const registerUser = {
       const hashedPassword = await bcrypt.hash(password, salt);
 
       const user = new User({
-        firstName,
-        lastName,
         email,
         password: hashedPassword,
       });

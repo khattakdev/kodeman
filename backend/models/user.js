@@ -7,10 +7,12 @@ const userSchema = new Schema(
     firstName: {
       type: String,
       required: true,
+      default: 'Kodeman',
     },
     lastName: {
       type: String,
       required: true,
+      default: 'User',
     },
     email: {
       type: String,
