@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axiosInstance from '../axios';
 
@@ -9,6 +9,12 @@ const signup = () => {
   const [confirmPassword, setConfirmPassword] = useState();
   const [iserror, setIsError] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    console.log('Hello World!');
+    const token = localStorage.getItem('token');
+    if (token) router.replace('/testing');
+  }, []);
 
   async function signupHandler(e) {
     e.preventDefault();

@@ -8,6 +8,13 @@ const Parameters = (props) => {
 
     setQueryParam(newQueryParams);
   }
+
+  function deleteParam(index) {
+    const newQueryParams = [...queryParam].filter(
+      (_, paramIndex) => paramIndex !== index
+    );
+    setQueryParam(newQueryParams);
+  }
   return (
     <div>
       <div className="flex flex-row justify-between">
@@ -30,7 +37,7 @@ const Parameters = (props) => {
           />
         </div>
       </div>
-      <div className="flex border bg-gray-800 border-gray-600 m-4 p-4 ">
+      <div className="flex border bg-gray-800 border-gray-600 m-4 p-4 max-h-56 overflow-y-auto">
         <div className="content-center flex w-full  items-center flex-col  self-center ">
           {queryParam.length === 0 ? (
             <p className="flex text-gray-500 text-center">
@@ -68,6 +75,7 @@ const Parameters = (props) => {
                     src="delete-icon.svg"
                     alt="delete"
                     className="border border-gray-600 m-2 h-8 w-8 cursor-pointer"
+                    onClick={() => deleteParam(index)}
                   />
                 </div>
               </div>
