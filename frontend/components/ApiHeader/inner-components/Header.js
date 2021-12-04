@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Headers = () => {
-  const [queryParam, setQueryParam] = useState([]);
+const Headers = (props) => {
+  const { headers, setHeaders } = props;
 
-  function addNewParam() {
-    const newQueryParams = [...queryParam, { parameter: '', value: '' }];
+  function addNewHeader() {
+    const newQueryParams = [...headers, { parameter: '', value: '' }];
 
-    setQueryParam(newQueryParams);
+    setHeaders(newQueryParams);
   }
   return (
     <div>
@@ -17,29 +17,24 @@ const Headers = () => {
             src="delete-icon.svg"
             alt="delete"
             className="m-2 mx-4 h-6 w-6 cursor-pointer"
-            onClick={() => setQueryParam([])}
+            onClick={() => setHeaders([])}
           />
           <img
-            src="edit note.svg"
-            alt="delete"
-            className="m-2 mx-4 h-6 w-6 cursor-pointer"
-          />
-          <img
-            onClick={() => addNewParam()}
+            onClick={() => addNewHeader()}
             src="add.svg"
             alt="delete"
             className="m-2 mx-4 h-6 w-6 cursor-pointer"
           />
         </div>
       </div>
-      <div className="flex border bg-gray-800 border-gray-600 m-4 p-4 h-52 ">
+      <div className="flex border bg-gray-800 border-gray-600 m-4 p-4 ">
         <div className="content-center flex w-full  items-center flex-col  self-center ">
-          {queryParam.length === 0 ? (
+          {headers.length === 0 ? (
             <p className="flex text-gray-500 text-center">
               {"This request don't have any parameters"}
             </p>
           ) : (
-            queryParam.map((param, index) => (
+            headers.map((param, index) => (
               <div key={index} className="flex flex-row w-full">
                 <input
                   className="m-2 p-2 w-2/4 bg-gray-800 text-gray-300 border border-gray-600 "
@@ -48,9 +43,9 @@ const Headers = () => {
                   value={param.parameter}
                   onChange={(e) => {
                     const currentParameter = e.target.value;
-                    const currentQueryParams = [...queryParam];
+                    const currentQueryParams = [...headers];
                     currentQueryParams[index].parameter = currentParameter;
-                    setQueryParam(currentQueryParams);
+                    setHeaders(currentQueryParams);
                   }}
                 />
                 <input
@@ -60,9 +55,9 @@ const Headers = () => {
                   value={param.value}
                   onChange={(e) => {
                     const currentValue = e.target.value;
-                    const currentQueryParams = [...queryParam];
+                    const currentQueryParams = [...headers];
                     currentQueryParams[index].value = currentValue;
-                    setQueryParam(currentQueryParams);
+                    setHeaders(currentQueryParams);
                   }}
                 />
                 <div className="p-2">
@@ -75,9 +70,9 @@ const Headers = () => {
               </div>
             ))
           )}
-          {queryParam.length === 0 ? (
+          {headers.length === 0 ? (
             <button
-              onClick={() => addNewParam()}
+              onClick={() => addNewHeader()}
               className="rounded-sm flex my-4 flex-row border p-2 hover:bg-gray-600 bg-gray-700 text-white"
             >
               <img src="add.svg" className="cursor-pointer " />

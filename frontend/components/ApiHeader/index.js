@@ -1,7 +1,7 @@
-const ApiHeader = (props) => {
-  const { setApiHeader } = props;
+const optionsList = (props) => {
+  const { setCurrentOption } = props;
   const handleTab = (tab) => {
-    setApiHeader(tab);
+    setCurrentOption(tab);
   };
   return (
     <div className="header">
@@ -34,4 +34,4 @@ const ApiHeader = (props) => {
     </div>
   );
 };
-export default ApiHeader;
+export default optionsList;

@@ -1,3 +1,5 @@
+// @TODO: Remove eslint-disable later
+/* eslint-disable no-console */
 import { useState } from 'react';
 import ApiHeader from '../components/ApiHeader';
 import Parameters from '../components/ApiHeader/inner-components/Parameter';
@@ -6,12 +8,26 @@ import Authorization from '../components/ApiHeader/inner-components/Authorizatio
 import Header from '../components/ApiHeader/inner-components/Header';
 
 const ApiTesting = () => {
-  const [apiHeader, setApiHeader] = useState('parameter');
+  const [currentOption, setCurrentOption] = useState('parameter');
   const [apiMethod, setApiMethod] = useState('get');
   const [apiUrl, setApiUrl] = useState('');
+  const [queryParam, setQueryParam] = useState([]);
+  const [headers, setHeaders] = useState([]);
+  const [auth, setAuth] = useState({
+    token: '',
+    username: '',
+    password: '',
+    type: '',
+  });
+  const [body, setBody] = useState('');
   function sendApiInput() {
     console.log(apiUrl);
     console.log(apiMethod);
+    console.log(body);
+    console.log(queryParam);
+    console.log(headers);
+    console.log(auth);
+    // @TODO: Send API Calls
   }
 
   return (
@@ -49,11 +65,17 @@ const ApiTesting = () => {
           Send
         </button>
       </div>
-      <ApiHeader setApiHeader={setApiHeader} />
-      {apiHeader === 'parameter' && <Parameters />}
-      {apiHeader === 'body' && <Body />}
-      {apiHeader === 'authorization' && <Authorization />}
-      {apiHeader === 'header' && <Header />}
+      <ApiHeader setCurrentOption={setCurrentOption} />
+      {currentOption === 'parameter' && (
+        <Parameters queryParam={queryParam} setQueryParam={setQueryParam} />
+      )}
+      {currentOption === 'body' && <Body body={body} setBody={setBody} />}
+      {currentOption === 'authorization' && (
+        <Authorization auth={auth} setAuth={setAuth} />
+      )}
+      {currentOption === 'header' && (
+        <Header headers={headers} setHeaders={setHeaders} />
+      )}
     </div>
   );
 };
