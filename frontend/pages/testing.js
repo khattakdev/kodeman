@@ -9,6 +9,7 @@ import Parameters from '../components/ApiHeader/inner-components/Parameter';
 import Body from '../components/ApiHeader/inner-components/Body';
 import Authorization from '../components/ApiHeader/inner-components/Authorization';
 import Header from '../components/ApiHeader/inner-components/Header';
+import Response from '../components/ApiHeader/inner-components/Response';
 
 const ApiTesting = () => {
   const router = useRouter();
@@ -24,22 +25,28 @@ const ApiTesting = () => {
     type: '',
   });
   const [body, setBody] = useState('');
+  const [res, setRes] = useState(undefined);
 
   useEffect(() => {
-    console.log('Hello World!');
     const token = localStorage.getItem('token');
     if (!token) router.replace('/login');
   }, []);
   async function sendApiInput() {
-    console.log(apiUrl);
-    console.log(apiMethod);
-    console.log(body);
-    console.log(queryParam);
-    console.log(headers);
-    console.log(auth);
+    // console.log(apiUrl);
+    // console.log(apiMethod);
+    // console.log(body);
+    // console.log(queryParam);
+    // console.log(headers);
+    // console.log(auth);
 
-    const res = await axios[apiMethod](apiUrl);
-    console.log(res);
+    const beforeRes = new Date();
+    const response = await axios[apiMethod](apiUrl, {
+      params: queryParam,
+      ...body,
+    });
+    const resTime = new Date() - beforeRes;
+    response.time = resTime;
+    setRes(response);
     // @TODO: Send API Calls
   }
 
@@ -64,15 +71,20 @@ const ApiTesting = () => {
           className="border-2 border-gray-500 bg-gray-800 text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
           type="text"
           placeholder="http://localhost:3000"
+          value={apiUrl}
           onChange={(e) => {
             const apiInput = e.target.value;
             setApiUrl(apiInput);
           }}
         />
         <button
-          className="bg-blue-700 text-white  my-2 p-2 px-4 rounded-sm hover:bg-blue-600 border-2 border-blue-400"
+          className={`${
+            apiUrl === ''
+              ? 'bg-gray-700 cursor-not-allowed'
+              : 'bg-blue-700 hover:bg-blue-600'
+          } text-white my-2 p-2 px-4 rounded-sm  border-2 border-blue-400`}
           onClick={() => {
-            sendApiInput();
+            if (apiUrl) sendApiInput();
           }}
         >
           Send
@@ -89,12 +101,7 @@ const ApiTesting = () => {
       {currentOption === 'header' && (
         <Header headers={headers} setHeaders={setHeaders} />
       )}
-      <div>
-        <h1 className="text-gray-500 px-4 flex content-start">Response</h1>
-        <div className={'border m-4 p-4 bg-gray-800 border-gray-600'}>
-          <h3 className="text-gray-500 px-4 flex content-start">Status: 200</h3>
-        </div>
-      </div>
+      {res && <Response res={res} />}
     </Layout>
   );
 };

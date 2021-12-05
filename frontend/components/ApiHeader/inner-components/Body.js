@@ -8,10 +8,10 @@ const Body = (props) => {
           id=""
           className="bg-gray-700 text-white border border-gray-600 rounded-sm px-2 m-2"
         >
-          <option value="none">none</option>
-          <option value="application/json" selected>
-            application/json
+          <option defaultValue value="none">
+            none
           </option>
+          <option value="application/json">application/json</option>
           <option value="application/id+json">application/id+json</option>
           <option value="application/hal+json">application/hal+json</option>
           <option value="application/vnd.api+json">
