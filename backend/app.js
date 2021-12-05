@@ -14,13 +14,6 @@ fastify.register(require('fastify-cors'), {
 });
 fastify.register(require('./routes/user'), { prefix: 'user' });
 
-fastify.post('/test', async (request) => {
-  console.log(request.body);
-  // console.log(request.params);
-  // console.log(request.headers);
-  // console.log(request.query);
-  return { hello: 'world' };
-});
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
