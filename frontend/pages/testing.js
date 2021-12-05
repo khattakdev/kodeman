@@ -32,17 +32,48 @@ const ApiTesting = () => {
     if (!token) router.replace('/login');
   }, []);
   async function sendApiInput() {
-    // console.log(apiUrl);
-    // console.log(apiMethod);
+    // console.log(apiUrl); ✅
+    // console.log(apiMethod); ✅
     // console.log(body);
-    // console.log(queryParam);
-    // console.log(headers);
+    // console.log(queryParam); ✅
+    // console.log(headers); ✅
     // console.log(auth);
+    let authorization = {};
 
+    if (auth.type === 'bearer' || auth.type === 'oauth') {
+      authorization = {
+        Authorization: auth.token,
+      };
+    } else if (auth.type === 'basic') {
+      authorization = {
+        username: auth.username,
+        password: auth.password,
+      };
+    }
+
+    const reqHeaders = {};
+    const reqParams = {};
+    headers.forEach((header) => {
+      reqHeaders[header.parameter] = header.value;
+    });
+    queryParam.forEach((param) => {
+      reqParams[param.parameter] = param.value;
+    });
+
+    const params = {};
+
+    console.log(!!reqParams);
+    if (reqParams) {
+      params.params = reqParams;
+    }
     const beforeRes = new Date();
     const response = await axios[apiMethod](apiUrl, {
-      params: queryParam,
+      ...params,
       ...body,
+      headers: {
+        ...reqHeaders,
+        ...authorization,
+      },
     });
     const resTime = new Date() - beforeRes;
     response.time = resTime;
