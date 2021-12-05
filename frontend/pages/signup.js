@@ -11,7 +11,6 @@ const signup = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log('Hello World!');
     const token = localStorage.getItem('token');
     if (token) router.replace('/testing');
   }, []);
@@ -31,19 +30,15 @@ const signup = () => {
     };
 
     const res = await axiosInstance.post('/user/register', data);
-    console.log(res);
     if (res.status === 200) {
       const tokenToJSON = JSON.stringify(res.data.token);
       localStorage.setItem('token', tokenToJSON);
       router.push('/dashboard');
-      return;
     }
-
-    console.log('Something went wrong!');
   }
 
   return (
-    <div className=" flex  text-center">
+    <div className=" flex text-white bg-gray-900 text-center">
       <div className="h-screen w-5/12  bg-purple-700">
         <div className="m-10 ml-48 h-5/6 mr-0 bg-purple-600 shadow-2xl flex flex-col justify-around ">
           <img src="logo.png" className="p-24" alt="Kodeman Logo" />
@@ -52,20 +47,17 @@ const signup = () => {
           </Link>
         </div>
       </div>
-      <div className="h-screen bg-white w-full max-w-screen-sm">
-        <div className="mt-10 mb-10 h-5/6 w-full bg-white shadow-2xl flex flex-col justify-around ">
+      <div className="h-screen bg-gray-700 w-full max-w-screen-sm">
+        <div className="mt-10 mb-10 h-5/6 w-full shadow-2xl flex flex-col justify-around ">
           <form
-            className="bg-white rounded px-8 pt-6 pb-8 mb-4"
+            className="bg-gray-900 rounded px-8 py-2"
             onSubmit={signupHandler}
           >
             <div className="mb-12 ">
               <h1 className=" text-5xl">Create an Account</h1>
             </div>
             <div className="mb-6">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="email"
-              >
+              <label className="block  text-sm font-bold mb-2" htmlFor="email">
                 Email
               </label>
               <input
@@ -79,7 +71,7 @@ const signup = () => {
             </div>
             <div className="mb-6">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-sm font-bold mb-2"
                 htmlFor="password"
               >
                 Password
@@ -94,7 +86,7 @@ const signup = () => {
             </div>
             <div className="mb-6">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-sm font-bold mb-2"
                 htmlFor="password"
               >
                 Confirm Password

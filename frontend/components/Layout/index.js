@@ -11,8 +11,8 @@ function Layout({ children, classes }) {
       >
         <img src="logo.png" className="h-24" alt="Kodeman logo" />
         <ul className=" flex">
-          <li className={'mr-4'}>Arsalan Khattak</li>
           <li
+            className={'cursor-pointer'}
             onClick={() => {
               localStorage.removeItem('token');
               router.push('/login');
@@ -27,7 +27,7 @@ function Layout({ children, classes }) {
           className={'w-42 h-screen -mt-14 p-4 pt-32 flex flex-col uppercase'}
         >
           <li className="mb-4 cursor-pointer hover:underline">
-            <Link href="/">
+            <Link href="/dashboard">
               <a>Dashboard</a>
             </Link>
           </li>
