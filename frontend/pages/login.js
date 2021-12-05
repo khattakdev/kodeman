@@ -35,7 +35,7 @@ const login = () => {
   }
 
   return (
-    <div className="flex  text-center text-white">
+    <div className="flex bg-gray-800 text-center text-white">
       <div className="h-screen w-5/12  bg-purple-700">
         <div className="m-10 ml-48 h-5/6 mr-0 bg-purple-600 shadow-2xl flex flex-col justify-around ">
           <img src="logo.png" className="p-24" alt="Kodeman logo" />
