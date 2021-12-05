@@ -10,7 +10,6 @@ const login = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log('Hello World!');
     const token = localStorage.getItem('token');
     if (token) router.replace('/testing');
   }, []);
@@ -28,15 +27,11 @@ const login = () => {
       password,
     };
     const res = await axiosInstance.post('/user/login', data);
-    console.log(res);
     if (res.status === 200) {
       const tokenToJSON = JSON.stringify(res.data.token);
       localStorage.setItem('token', tokenToJSON);
       router.push('/dashboard');
-      return;
     }
-
-    console.log('Something went wrong');
   }
 
   return (
