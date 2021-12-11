@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Parameters = () => {
-  const [queryParam, setQueryParam] = useState([]);
+const Parameters = (props) => {
+  const { queryParam, setQueryParam } = props;
 
   function addNewParam() {
     const newQueryParams = [...queryParam, { parameter: '', value: '' }];
 
+    setQueryParam(newQueryParams);
+  }
+
+  function deleteParam(index) {
+    const newQueryParams = [...queryParam].filter(
+      (_, paramIndex) => paramIndex !== index
+    );
     setQueryParam(newQueryParams);
   }
   return (
@@ -21,11 +28,7 @@ const Parameters = () => {
             className="m-2 mx-4 h-6 w-6 cursor-pointer"
             onClick={() => setQueryParam([])}
           />
-          <img
-            src="edit note.svg"
-            alt="delete"
-            className="m-2 mx-4 h-6 w-6 cursor-pointer"
-          />
+
           <img
             onClick={() => addNewParam()}
             src="add.svg"
@@ -34,7 +37,7 @@ const Parameters = () => {
           />
         </div>
       </div>
-      <div className="flex border bg-gray-800 border-gray-600 m-4 p-4 h-52 ">
+      <div className="flex border bg-gray-800 border-gray-600 m-4 p-4 max-h-56 overflow-y-auto">
         <div className="content-center flex w-full  items-center flex-col  self-center ">
           {queryParam.length === 0 ? (
             <p className="flex text-gray-500 text-center">
@@ -72,6 +75,7 @@ const Parameters = () => {
                     src="delete-icon.svg"
                     alt="delete"
                     className="border border-gray-600 m-2 h-8 w-8 cursor-pointer"
+                    onClick={() => deleteParam(index)}
                   />
                 </div>
               </div>

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axiosInstance from '../axios';
 
@@ -8,6 +8,11 @@ const login = () => {
   const [password, setPassword] = useState();
   const [iserror, setIsError] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) router.replace('/testing');
+  }, []);
 
   async function loginHandler(e) {
     e.preventDefault();
@@ -22,19 +27,15 @@ const login = () => {
       password,
     };
     const res = await axiosInstance.post('/user/login', data);
-    console.log(res);
     if (res.status === 200) {
       const tokenToJSON = JSON.stringify(res.data.token);
       localStorage.setItem('token', tokenToJSON);
       router.push('/dashboard');
-      return;
     }
-
-    console.log('Something went wrong');
   }
 
   return (
-    <div className="flex  text-center">
+    <div className="flex bg-gray-800 text-center text-white">
       <div className="h-screen w-5/12  bg-purple-700">
         <div className="m-10 ml-48 h-5/6 mr-0 bg-purple-600 shadow-2xl flex flex-col justify-around ">
           <img src="logo.png" className="p-24" alt="Kodeman logo" />
@@ -43,20 +44,17 @@ const login = () => {
           </Link>
         </div>
       </div>
-      <div className="h-screen bg-white w-full max-w-screen-sm">
-        <div className="mt-10 mb-10 h-5/6  bg-white shadow-2xl flex flex-col justify-around ">
+      <div className="h-screen bg-gray-800 w-full max-w-screen-sm">
+        <div className="mt-10 mb-10 h-5/6  bg-gray-900 shadow-2xl flex flex-col justify-around ">
           <form
-            className="bg-white rounded px-8 pt-6 pb-8 mb-4"
+            className=" rounded px-8 pt-6 pb-8 mb-4"
             onSubmit={loginHandler}
           >
             <div className="mb-12 ">
               <h1 className=" text-5xl">Login your Account</h1>
             </div>
             <div className="mb-6">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="email"
-              >
+              <label className="block  text-sm font-bold mb-2" htmlFor="email">
                 Email
               </label>
               <input
@@ -70,7 +68,7 @@ const login = () => {
             </div>
             <div className="mb-6">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-sm font-bold mb-2"
                 htmlFor="password"
               >
                 Password
