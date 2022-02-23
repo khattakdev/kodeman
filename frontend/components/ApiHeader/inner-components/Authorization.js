@@ -26,11 +26,11 @@ const Authorization = (props) => {
   return (
     <div>
       <div className="flex flex-row"></div>
-      <div className="flex flex-row justify-between border-gray-600 border m-4">
+      <div className="flex flex-row justify-between border-black  dark:border-gray-600 border m-4">
         <div className="flex content-start">
-          <h1 className="text-gray-500 m-2 p-2">Authorized Type</h1>
+          <h1 className="text-black dark:text-gray-500 m-2 p-2">Authorized Type</h1>
           <select
-            className="bg-gray-700 text-white border border-gray-600 rounded-sm px-2 m-2"
+            className="bg-gray-400 text-black dark:bg-gray-700 dark:text-white border-black dark:border-gray-600 rounded-sm px-2 m-2"
             onChange={authType}
           >
             <option defaultValue value="none">
@@ -42,18 +42,18 @@ const Authorization = (props) => {
           </select>
         </div>
       </div>
-      <div className="h-52 p-2 m-4 bg-gray-800 border border-gray-600">
+      <div className="h-52 p-2 m-4 bg-gray-200 border border-gray-500 dark:bg-gray-800 dark:border-gray-600">
         {auth.type === 'basic' && (
           <>
             <input
-              className="m-2 p-2 w-2/4 bg-gray-800 text-gray-300 border border-gray-600 "
+              className="m-2 p-2 w-2/4 border-2 border-gray-500 bg-gray-100 text-black  dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 "
               type="text"
               placeholder="Username"
               value={auth.username}
               onChange={authValue}
             />
             <input
-              className="m-2 p-2 w-2/4 bg-gray-800 text-gray-300 border border-gray-600 "
+              className="m-2 p-2 w-2/4 border-2 border-gray-500 bg-gray-100 text-black  dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 "
               type="password"
               placeholder="Password"
               value={auth.password}
@@ -63,7 +63,7 @@ const Authorization = (props) => {
         )}
         {(auth.type === 'bearer' || auth.type === 'oauth') && (
           <input
-            className="m-2 p-2 w-2/4 bg-gray-800 text-gray-300 border border-gray-600 "
+            className="m-2 p-2 w-2/4 border-2 border-gray-500 bg-gray-100 text-black  dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 "
             type="text"
             placeholder="Token"
             value={auth.token}

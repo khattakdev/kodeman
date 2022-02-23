@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { TrashIcon, PlusIcon , PlusCircleIcon } from '@heroicons/react/solid';
 const Headers = (props) => {
   const { headers, setHeaders } = props;
 
@@ -8,36 +8,42 @@ const Headers = (props) => {
 
     setHeaders(newQueryParams);
   }
+
+  function deleteHeader(index) {
+    const newQueryParams = [...headers].filter(
+      (_, paramIndex) => paramIndex !== index
+    );
+    setHeaders(newQueryParams);
+  }
   return (
     <div>
       <div className="flex flex-row justify-between">
-        <h1 className="text-gray-500  px-4 flex content-start">Header List</h1>
+        <h1 className="text-black dark:text-gray-500s px-4 flex content-start">Header List</h1>
         <div className="flex justify-self-end">
-          <img
-            src="delete-icon.svg"
-            alt="delete"
-            className="m-2 mx-4 h-6 w-6 cursor-pointer"
-            onClick={() => setHeaders([])}
-          />
-          <img
-            onClick={() => addNewHeader()}
-            src="add.svg"
-            alt="delete"
-            className="m-2 mx-4 h-6 w-6 cursor-pointer"
-          />
+        <TrashIcon
+          className="mx-4 h-6 w-6 cursor-pointer"
+          role="button"
+          onClick={() => setHeaders([])}
+        />
+        <PlusCircleIcon
+          className=" mx-6 h-6 w-6 cursor-pointer"
+          role="button"
+          onClick={() => addNewHeader()}
+          
+        />
         </div>
       </div>
-      <div className="flex border bg-gray-800 border-gray-600 m-4 p-4 ">
+      <div className="flex border bg-gray-200 text-black border-gray-500 dark:bg-gray-800 dark:border-gray-600 m-4 p-4 ">
         <div className="content-center flex w-full  items-center flex-col  self-center ">
           {headers.length === 0 ? (
-            <p className="flex text-gray-500 text-center">
+            <p className="flex text-black dark:text-gray-500 text-center">
               {"This request don't have any parameters"}
             </p>
           ) : (
             headers.map((param, index) => (
               <div key={index} className="flex flex-row w-full">
                 <input
-                  className="m-2 p-2 w-2/4 bg-gray-800 text-gray-300 border border-gray-600 "
+                  className="m-2 p-2 w-2/4 bg-gray-100 text-black border-2 border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 "
                   type="text"
                   placeholder="Parameter"
                   value={param.parameter}
@@ -49,7 +55,7 @@ const Headers = (props) => {
                   }}
                 />
                 <input
-                  className="m-2 p-2 w-2/4 bg-gray-800 text-gray-300 border border-gray-600 "
+                  className="m-2 p-2 w-2/4 bg-gray-100 text-black border-2 border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600"
                   type="text"
                   placeholder="Value"
                   value={param.value}
@@ -61,11 +67,12 @@ const Headers = (props) => {
                   }}
                 />
                 <div className="p-2">
-                  <img
-                    src="delete-icon.svg"
-                    alt="delete"
-                    className="border border-gray-600 m-2 h-8 w-8 cursor-pointer"
+                  <TrashIcon
+                    className="mx-4 my-1 h-8 w-8 cursor-pointer dark:text-white"
+                    role="button"
+                    onClick={() => deleteHeader(index)}
                   />
+    
                 </div>
               </div>
             ))
@@ -73,10 +80,10 @@ const Headers = (props) => {
           {headers.length === 0 ? (
             <button
               onClick={() => addNewHeader()}
-              className="rounded-sm flex my-4 flex-row border p-2 hover:bg-gray-600 bg-gray-700 text-white"
+              className="rounded-sm flex my-4 flex-row border p-2 hover:bg-gray-500 bg-gray-400 text-black dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white"
             >
-              <img src="add.svg" className="cursor-pointer " />
-              Add New
+              <PlusIcon className="h-4 w-4 my-auto cursor-pointer"/>
+               Add New
             </button>
           ) : (
             ''
