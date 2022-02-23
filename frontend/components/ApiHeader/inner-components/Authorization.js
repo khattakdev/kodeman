@@ -28,7 +28,9 @@ const Authorization = (props) => {
       <div className="flex flex-row"></div>
       <div className="flex flex-row justify-between border-black  dark:border-gray-600 border m-4">
         <div className="flex content-start">
-          <h1 className="text-black dark:text-gray-500 m-2 p-2">Authorized Type</h1>
+          <h1 className="text-black dark:text-gray-500 m-2 p-2">
+            Authorized Type
+          </h1>
           <select
             className="bg-gray-400 text-black dark:bg-gray-700 dark:text-white border-black dark:border-gray-600 rounded-sm px-2 m-2"
             onChange={authType}

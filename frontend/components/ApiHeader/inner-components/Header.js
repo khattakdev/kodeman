@@ -1,5 +1,6 @@
 import React from 'react';
-import { TrashIcon, PlusIcon , PlusCircleIcon } from '@heroicons/react/solid';
+import { TrashIcon, PlusIcon, PlusCircleIcon } from '@heroicons/react/solid';
+
 const Headers = (props) => {
   const { headers, setHeaders } = props;
 
@@ -18,19 +19,20 @@ const Headers = (props) => {
   return (
     <div>
       <div className="flex flex-row justify-between">
-        <h1 className="text-black dark:text-gray-500s px-4 flex content-start">Header List</h1>
+        <h1 className="text-black dark:text-gray-500s px-4 flex content-start">
+          Header List
+        </h1>
         <div className="flex justify-self-end">
-        <TrashIcon
-          className="mx-4 h-6 w-6 cursor-pointer"
-          role="button"
-          onClick={() => setHeaders([])}
-        />
-        <PlusCircleIcon
-          className=" mx-6 h-6 w-6 cursor-pointer"
-          role="button"
-          onClick={() => addNewHeader()}
-          
-        />
+          <TrashIcon
+            className="mx-4 h-6 w-6 cursor-pointer"
+            role="button"
+            onClick={() => setHeaders([])}
+          />
+          <PlusCircleIcon
+            className=" mx-6 h-6 w-6 cursor-pointer"
+            role="button"
+            onClick={() => addNewHeader()}
+          />
         </div>
       </div>
       <div className="flex border bg-gray-200 text-black border-gray-500 dark:bg-gray-800 dark:border-gray-600 m-4 p-4 ">
@@ -72,7 +74,6 @@ const Headers = (props) => {
                     role="button"
                     onClick={() => deleteHeader(index)}
                   />
-    
                 </div>
               </div>
             ))
@@ -82,8 +83,8 @@ const Headers = (props) => {
               onClick={() => addNewHeader()}
               className="rounded-sm flex my-4 flex-row border p-2 hover:bg-gray-500 bg-gray-400 text-black dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white"
             >
-              <PlusIcon className="h-4 w-4 my-auto cursor-pointer"/>
-               Add New
+              <PlusIcon className="h-4 w-4 my-auto cursor-pointer" />
+              Add New
             </button>
           ) : (
             ''

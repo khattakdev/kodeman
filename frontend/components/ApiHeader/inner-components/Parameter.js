@@ -1,6 +1,5 @@
 import React from 'react';
-import { TrashIcon, PlusIcon ,PlusCircleIcon } from '@heroicons/react/solid';
-
+import { TrashIcon, PlusIcon, PlusCircleIcon } from '@heroicons/react/solid';
 
 const Parameters = (props) => {
   const { queryParam, setQueryParam } = props;
@@ -24,17 +23,16 @@ const Parameters = (props) => {
           Query parameter
         </h1>
         <div className="flex justify-self-end">
-        <TrashIcon
-          className="mx-4 h-6 w-6 cursor-pointer"
-          role="button"
-          onClick={() => setQueryParam([])}
-          
-        />
-        <PlusCircleIcon
-          className="mx-6 h-6 w-6 cursor-pointer"
-          role="button"
-          onClick={() => addNewParam()}
-         />
+          <TrashIcon
+            className="mx-4 h-6 w-6 cursor-pointer"
+            role="button"
+            onClick={() => setQueryParam([])}
+          />
+          <PlusCircleIcon
+            className="mx-6 h-6 w-6 cursor-pointer"
+            role="button"
+            onClick={() => addNewParam()}
+          />
         </div>
       </div>
       <div className="flex border bg-gray-200 text-black border-gray-500 dark:bg-gray-800 dark:border-gray-600  m-4 p-4 max-h-56 overflow-y-auto">
@@ -70,9 +68,9 @@ const Parameters = (props) => {
                     setQueryParam(currentQueryParams);
                   }}
                 />
-                
+
                 <div className="p-2">
-                <TrashIcon
+                  <TrashIcon
                     className="mx-4 my-1 h-8 w-8 dark:text-white cursor-pointer"
                     role="button"
                     onClick={() => deleteParam(index)}
@@ -83,13 +81,12 @@ const Parameters = (props) => {
           )}
           {queryParam.length === 0 ? (
             <button
-            onClick={() => addNewParam()}
-            className="rounded-sm flex my-4 flex-row border p-2 hover:bg-gray-500 bg-gray-400 text-black dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white"
-          >
-            <PlusIcon className="h-4 w-4 my-auto cursor-pointer"/>
-             Add New
-          </button>
-            
+              onClick={() => addNewParam()}
+              className="rounded-sm flex my-4 flex-row border p-2 hover:bg-gray-500 bg-gray-400 text-black dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white"
+            >
+              <PlusIcon className="h-4 w-4 my-auto cursor-pointer" />
+              Add New
+            </button>
           ) : (
             ''
           )}
