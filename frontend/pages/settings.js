@@ -1,8 +1,64 @@
 import Layout from '../components/Layout';
+import {useEffect, useState} from "react"; 
+import {MoonIcon , SunIcon } from "@heroicons/react/solid"
+import {useTheme} from 'next-themes'
 
-const Settings = () => (
-  <Layout>
-    <div className="flex bg-gray-900 max-h-screen w-full h-screen justify-center">
+const Settings = () => {
+
+  const {systemTheme , theme, setTheme}  = useTheme()
+  const [mounted,setMounted] = useState(false);
+  // const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    // const updatedTheme = localStorage.getItem('theme');
+    setMounted(true);
+  }, []);
+
+  const updateTheme = () => {
+    if (!mounted) return null;
+
+    const currentTheme = theme === 'system' ? systemTheme : theme;
+    if (currentTheme === 'dark') {
+      return (
+        <SunIcon
+        className='w-7 h-7'
+        role='button'
+        onClick={()=>setTheme('light')} />
+      )
+    }
+    else
+    {
+      return (
+        <MoonIcon
+        className='w-7 h-7'
+        role='button'
+        onClick={()=>setTheme('dark')} />
+      )
+    }
+  }
+  
+  // useEffect(() => {
+  //   const updatedTheme = localStorage.getItem('theme');
+  //   setTheme(updatedTheme);
+  // }, []);
+
+  // const updateTheme = () => {
+  //   // console.log(systemTheme,theme);
+  //   const currentTheme = localStorage.getItem('theme');
+  //   if(currentTheme == "light") {
+  //     setTheme("dark");
+  //     localStorage.setItem("theme", "dark")
+  //     // setMyTheme("dark")
+  //   } else {
+  //     setTheme("light");
+  //     localStorage.setItem("theme", "light")
+  //     // setMyTheme("light")
+  //   }
+  // }
+
+  return <Layout>
+    <div className="flex bg-gray-900 dark:bg-red-500 max-h-screen w-full h-screen justify-center">
+
       <div>
         {/* <div>
           <h1 className="text-white font-bold p-4 flex content-start">
@@ -40,9 +96,11 @@ const Settings = () => (
           ></button>
         </div>
         <div className="flex flex-col">
-          <h1 className="flex text-white font-bold p-4 w-1/2 content-start">
+          <h1 className="flex text-white font-bold p-4 w-1/2 content-start" >
             Change Theme
           </h1>
+          {updateTheme()}
+          {/* <button onClick={updateTheme}>Theme - {systemTheme}</button> */}
           <div className="flex flex-row">
             <div className="m-4 text-white font-normal">Light Mode</div>
             <label
@@ -64,6 +122,6 @@ const Settings = () => (
       </div>
     </div>
   </Layout>
-);
+};
 
 export default Settings;
