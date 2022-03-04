@@ -6,7 +6,13 @@ const DatabaseValues = (props) => {
   function addNewValue() {
     const newQueryParams = [
       ...dbValue,
-      { name: '', type: '', defaultValue: '', required: false },
+      {
+        name: '',
+        type: 'get',
+        defaultValue: '',
+        required: false,
+        placement: 'body',
+      },
     ];
 
     setDbValues(newQueryParams);
@@ -44,7 +50,7 @@ const DatabaseValues = (props) => {
         <div className="content-center flex w-full  items-center flex-col  self-center ">
           {dbValue.length === 0 ? (
             <p className="flex text-gray-500 text-center">
-              {"This request don't have any parameters"}
+              {"The API doesn't have any endpoints"}
             </p>
           ) : (
             dbValue.map((param, index) => (
@@ -101,6 +107,21 @@ const DatabaseValues = (props) => {
                 >
                   <option value="false">False</option>
                   <option value="true">True</option>
+                </select>
+                <select
+                  onChange={(e) => {
+                    const currentParameter = e.target.value;
+                    const currentQueryParams = [...dbValue];
+                    currentQueryParams[index].placement = currentParameter;
+                    setDbValues(currentQueryParams);
+                  }}
+                  placeholder="Required"
+                  className="border-blue-400 border bg-blue-700 text-white m-2 ml-2 my-2 px-4 py-2 rounded-sm hover:bg-blue-600"
+                >
+                  <option value="body">Body</option>
+                  <option value="header">Header</option>
+                  <option value="parameter">Parameter</option>
+                  <option value="auth">Authorization</option>
                 </select>
                 <div className="p-2">
                   <img

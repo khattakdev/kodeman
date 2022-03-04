@@ -4,13 +4,36 @@ import Button from '../components/Layout/Button';
 import DatabaseValues from '../components/DatabaseValues';
 
 function createAPI() {
-  const [option, setOption] = useState(1);
+  const [option, setOption] = useState(2);
   const [apiMethod, setApiMethod] = useState('get');
   const [dbValue, setDbValues] = useState([]);
   const [apiUrl, setApiUrl] = useState('');
   return (
+    // @TODO: Create Models
     <Layout>
       <div className={'bg-gray-900 p-8'}>
+        <div className="flex justify-between">
+          <div>
+            <Button
+              onClick={() => {
+                const newOption = option - 1;
+                setOption(newOption);
+              }}
+            >
+              Previous
+            </Button>
+          </div>
+          <div>
+            <Button
+              onClick={() => {
+                const newOption = option + 1;
+                setOption(newOption);
+              }}
+            >
+              Next
+            </Button>
+          </div>
+        </div>
         CUTOM OR PRESET {option}
         {/* 
           PRESET 
@@ -22,18 +45,7 @@ function createAPI() {
             GET IT FROM -> HEADER, BODY
 
         */}
-        {option === 1 && (
-          <div>
-            <Button
-              onClick={() => {
-                const newOption = option + 1;
-                setOption(newOption);
-              }}
-            >
-              Next
-            </Button>
-          </div>
-        )}
+        {option === 1 && <h2>Create a new Project</h2>}
         {option === 2 && (
           <div className="flex flex-row flex-wrap">
             <select
@@ -60,23 +72,22 @@ function createAPI() {
                 setApiUrl(apiInput);
               }}
             />
-            <button
-              className={`${
-                apiUrl === ''
-                  ? 'bg-gray-700 cursor-not-allowed'
-                  : 'bg-blue-700 hover:bg-blue-600'
-              } text-white my-2 p-2 px-4 rounded-sm  border-2 border-blue-400`}
-              onClick={() => {
-                const newOption = option + 1;
-                setOption(newOption);
-              }}
-            >
-              Next
-            </button>
           </div>
         )}
-        {option === 1 && (
+        {option === 3 && (
           <DatabaseValues dbValue={dbValue} setDbValues={setDbValues} />
+        )}
+        {option === 4 && apiMethod === 'get' && (
+          <h2>GET METHOD / Read the data</h2>
+        )}
+        {option === 4 && apiMethod === 'post' && (
+          <h2>POST METHOD / Save the data </h2>
+        )}
+        {option === 4 && apiMethod === 'put' && (
+          <h2>PUT METHOD / Update the data</h2>
+        )}
+        {option === 4 && apiMethod === 'delete' && (
+          <h2>DELETE METHOD / Remove the Data</h2>
         )}
       </div>
     </Layout>
