@@ -11,7 +11,11 @@ function createAPI() {
   return (
     // @TODO: Create Models
     <Layout>
-      <div className={'bg-gray-900 p-8'}>
+      <div
+        className={
+          'bg-gray-300 text-black dark:bg-gray-900 dark:text-white p-8'
+        }
+      >
         <div className="flex justify-between">
           <div>
             <Button

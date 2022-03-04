@@ -82,7 +82,7 @@ const ApiTesting = () => {
   }
 
   return (
-    <Layout classes="main bg-gray-900">
+    <Layout classes="main bg-gray-300 dark:bg-gray-900 dark:text-white">
       <div className="flex flex-row flex-wrap">
         <select
           defaultValue={'apiMethod'}
@@ -99,7 +99,7 @@ const ApiTesting = () => {
         </select>
         <input
           name="Api-URL"
-          className="border-2 border-gray-500 bg-gray-800 text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
+          className="border-2 border-gray-400  bg-gray-200 text-black dark:border-gray-500  dark:bg-gray-800 dark:text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
           type="text"
           placeholder="http://localhost:3000"
           value={apiUrl}
@@ -111,7 +111,7 @@ const ApiTesting = () => {
         <button
           className={`${
             apiUrl === ''
-              ? 'bg-gray-700 cursor-not-allowed'
+              ? 'bg-gray-400  dark:bg-gray-700 cursor-not-allowed'
               : 'bg-blue-700 hover:bg-blue-600'
           } text-white my-2 p-2 px-4 rounded-sm  border-2 border-blue-400`}
           onClick={() => {
