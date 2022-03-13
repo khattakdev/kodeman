@@ -9,7 +9,7 @@ function createAPI() {
   const [apiMethod, setApiMethod] = useState('get');
   const [dbValue, setDbValues] = useState([]);
   const [apiUrl, setApiUrl] = useState('');
-  const [projectName, setProjectName] = useState('');
+  const [projectName, setProjectName] = useState('kodename');
   return (
     // @TODO: Create Models
     <Layout>
@@ -121,17 +121,24 @@ function createAPI() {
         )}
       </div>
       <Button
-        onClick={() => {
+        onClick={async () => {
           const body = {
             projectName,
             dbValues: DatabaseValues,
             apiMethod,
           };
-          axios.post('/download', body);
-          // axios.post('/download', data: {
-          //   projectName,
+          const response = await axios.post('/download', body);
+          console.log(response);
+          fetch(
+            'file:///Users/khattakdev/code/kodeman/backend/temp/kodename.zip'
+          );
+          // console.log(response);
+          // const blob = new Blob([response.data], {
+          //   type: 'application/zip',
+          // });
 
-          // } );
+          // console.log(blob);
+          // FileSaver.saveAs(blob, 'test.zip');
         }}
       >
         Download project
