@@ -2,12 +2,14 @@ import { useState } from 'react';
 import Layout from '../components/Layout';
 import Button from '../components/Layout/Button';
 import DatabaseValues from '../components/DatabaseValues';
+import axios from '../axios';
 
 function createAPI() {
-  const [option, setOption] = useState(2);
+  const [option, setOption] = useState(1);
   const [apiMethod, setApiMethod] = useState('get');
   const [dbValue, setDbValues] = useState([]);
   const [apiUrl, setApiUrl] = useState('');
+  const [projectName, setProjectName] = useState('');
   return (
     // @TODO: Create Models
     <Layout>
@@ -49,7 +51,31 @@ function createAPI() {
             GET IT FROM -> HEADER, BODY
 
         */}
-        {option === 1 && <h2>Create a new Project</h2>}
+        {option === 1 && (
+          <div>
+            <input
+              name="Api-URL"
+              className="border-2 border-gray-500 bg-gray-800 text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
+              type="text"
+              placeholder="Kodeman"
+              value={projectName}
+              onChange={(e) => {
+                const updatedProjectName = e.target.value;
+                setProjectName(updatedProjectName);
+              }}
+            />
+            <Button
+              onClick={() => {
+                const project = JSON.stringify({
+                  projectName,
+                });
+                localStorage.setItem('kodeman_project', project);
+              }}
+            >
+              Create new project
+            </Button>
+          </div>
+        )}
         {option === 2 && (
           <div className="flex flex-row flex-wrap">
             <select
@@ -94,6 +120,22 @@ function createAPI() {
           <h2>DELETE METHOD / Remove the Data</h2>
         )}
       </div>
+      <Button
+        onClick={() => {
+          const body = {
+            projectName,
+            dbValues: DatabaseValues,
+            apiMethod,
+          };
+          axios.post('/download', body);
+          // axios.post('/download', data: {
+          //   projectName,
+
+          // } );
+        }}
+      >
+        Download project
+      </Button>
     </Layout>
   );
 }
