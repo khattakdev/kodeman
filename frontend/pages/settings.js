@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { MoonIcon, SunIcon } from '@heroicons/react/solid';
 import { useTheme } from 'next-themes';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import Layout from '../components/Layout';
-import {signIn , signOut , useSession } from 'next-auth/react';
-
 
 const Settings = () => {
-  const { data:session } = useSession();
+  const { data: session } = useSession();
   // const { accessToken } = data;
   // const { data: session, status } = useSession();
   // console.log(session);
@@ -84,21 +83,25 @@ const Settings = () => {
             </h1>
           </div>
           <div>Access Token: {session}</div>
-          {!session && 
-          (<button onClick={signIn} className=" flex border-2 bg-blue-500 px-4 py-2 my-6 mx-4 text-black dark:text-white rounded-md transition duration-500 ease-in-out  hover:bg-red-400 transform hover:-translate-y-1 hover:scale-110">
-            Connect To GitHub
-          </button>)
-          }
-          {session && 
-          (
-          <>
-          <p>Welcome {session.user.email}</p>
-          <button onClick={signOut} className=" flex border-2 bg-blue-500 px-4 py-2 my-6 mx-4 text-black dark:text-white rounded-md transition duration-500 ease-in-out  hover:bg-red-400 transform hover:-translate-y-1 hover:scale-110">
-            SignOut
-          </button>
-          </>)
-          }
-          
+          {!session && (
+            <button
+              onClick={signIn}
+              className=" flex border-2 bg-blue-500 px-4 py-2 my-6 mx-4 text-black dark:text-white rounded-md transition duration-500 ease-in-out  hover:bg-red-400 transform hover:-translate-y-1 hover:scale-110"
+            >
+              Connect To GitHub
+            </button>
+          )}
+          {session && (
+            <>
+              <p>Welcome {session.user.email}</p>
+              <button
+                onClick={signOut}
+                className=" flex border-2 bg-blue-500 px-4 py-2 my-6 mx-4 text-black dark:text-white rounded-md transition duration-500 ease-in-out  hover:bg-red-400 transform hover:-translate-y-1 hover:scale-110"
+              >
+                SignOut
+              </button>
+            </>
+          )}
         </div>
       </div>
     </Layout>

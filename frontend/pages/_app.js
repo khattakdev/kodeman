@@ -1,8 +1,8 @@
 import 'tailwindcss/tailwind.css';
 import { ThemeProvider } from 'next-themes';
-import { SessionProvider} from "next-auth/react"
+import { SessionProvider } from 'next-auth/react';
 
-function MyApp({ Component,  pageProps: { session, ...pageProps } }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <SessionProvider session={pageProps.session}>
       <ThemeProvider enableSystem={true} attribute="class">
