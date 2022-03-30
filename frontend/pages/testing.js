@@ -1,8 +1,8 @@
 // @TODO: Remove eslint-disable later
 /* eslint-disable no-console */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import ApiHeader from '../components/ApiHeader';
 import Layout from '../components/Layout';
 import Parameters from '../components/ApiHeader/inner-components/Parameter';
@@ -12,7 +12,7 @@ import Header from '../components/ApiHeader/inner-components/Header';
 import Response from '../components/ApiHeader/inner-components/Response';
 
 const ApiTesting = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const [currentOption, setCurrentOption] = useState('parameter');
   const [apiMethod, setApiMethod] = useState('get');
   const [apiUrl, setApiUrl] = useState('');
@@ -27,10 +27,10 @@ const ApiTesting = () => {
   const [body, setBody] = useState('');
   const [res, setRes] = useState(undefined);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) router.replace('/login');
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if (!token) router.replace('/login');
+  // }, []);
   async function sendApiInput() {
     // console.log(apiUrl); ✅
     // console.log(apiMethod); ✅
