@@ -8,8 +8,8 @@ const DatabaseValues = (props) => {
       ...dbValue,
       {
         name: '',
-        type: 'get',
-        defaultValue: '',
+        // type: 'get',
+        // defaultValue: '',
         required: false,
         placement: 'body',
       },
@@ -50,7 +50,7 @@ const DatabaseValues = (props) => {
         <div className="content-center flex w-full  items-center flex-col  self-center ">
           {dbValue.length === 0 ? (
             <p className="flex text-gray-500 text-center">
-              {"The API doesn't have any endpoints"}
+              {"The API doesn't have any values"}
             </p>
           ) : (
             dbValue.map((param, index) => (
@@ -83,7 +83,7 @@ const DatabaseValues = (props) => {
                   <option value="patch">PATCH</option>
                   <option value="delete">DELETE</option>
                 </select> */}
-                <input
+                {/* <input
                   className="m-2 p-2 w-2/4 bg-gray-800 text-gray-300 border border-gray-600 "
                   type="text"
                   placeholder="Default Value"
@@ -94,7 +94,7 @@ const DatabaseValues = (props) => {
                     currentQueryParams[index].defaultValue = currentValue;
                     setDbValues(currentQueryParams);
                   }}
-                />
+                /> */}
                 <select
                   onChange={(e) => {
                     const currentParameter = e.target.value;
