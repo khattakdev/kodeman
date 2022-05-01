@@ -3,16 +3,25 @@ import Layout from '../components/Layout';
 import Button from '../components/Layout/Button';
 import DatabaseValues from '../components/DatabaseValues';
 import APICreation from '../components/api_creation';
+import APIModels from '../components/api_models/model';
 import axios from '../axios';
 
 function createAPI() {
   const [option, setOption] = useState(1);
+  const [models, setAPIModels] = useState([[]]);
   const [_API, _setAPI] = useState([]);
   const [apiMethod, setApiMethod] = useState('get');
   const [dbValue, setDbValues] = useState([]);
   const [apiUrl, setApiUrl] = useState('');
   const [projectName, setProjectName] = useState('kodename');
   const [responseMessage, setResponseMessage] = useState('');
+
+  const addNewModel = () => {
+    const updatedAPIModel = [...models];
+    updatedAPIModel.push([]);
+
+    setAPIModels(updatedAPIModel);
+  };
   return (
     // @TODO: Create Models
     <Layout>
@@ -55,29 +64,45 @@ function createAPI() {
 
         */}
         {option === 1 && (
-          <div>
-            <input
-              name="Api-URL"
-              className="border-2 border-gray-500 bg-gray-800 text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
-              type="text"
-              placeholder="Kodeman"
-              value={projectName}
-              onChange={(e) => {
-                const updatedProjectName = e.target.value;
-                setProjectName(updatedProjectName);
-              }}
-            />
-            <Button
-              onClick={() => {
-                const project = JSON.stringify({
-                  projectName,
-                });
-                localStorage.setItem('kodeman_project', project);
-              }}
-            >
-              Create new project
-            </Button>
-          </div>
+          <>
+            <div>
+              <input
+                name="Api-URL"
+                className="border-2 border-gray-500 bg-gray-800 text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
+                type="text"
+                placeholder="Kodeman"
+                value={projectName}
+                onChange={(e) => {
+                  const updatedProjectName = e.target.value;
+                  setProjectName(updatedProjectName);
+                }}
+              />
+              <Button
+                onClick={() => {
+                  const project = JSON.stringify({
+                    projectName,
+                  });
+                  localStorage.setItem('kodeman_project', project);
+                }}
+              >
+                Create new project
+              </Button>
+            </div>
+            <div>
+              <h2 onClick={addNewModel}>Create a new model</h2>
+              {models.map((model, index) => (
+                // <h2 key={index}>{index}</h2>
+                <APIModels
+                  key={index}
+                  id={index}
+                  apiModel={models}
+                  setAPIModel={setAPIModels}
+                />
+              ))}
+              {/* <APIModels id={2} apiModel={models} setAPIModel={setAPIModels} />
+              <APIModels id={3} apiModel={models} setAPIModel={setAPIModels} /> */}
+            </div>
+          </>
         )}
         {option === 2 && (
           <div className="flex flex-row flex-wrap">
