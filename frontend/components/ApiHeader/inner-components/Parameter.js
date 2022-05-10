@@ -58,7 +58,8 @@ const Parameters = (props) => {
                     setQueryParam(currentQueryParams);
                   }}
                 />
-                <input
+ `
+ `               <input
                   className="m-2 p-2 w-2/4 bg-gray-800 text-gray-300 border border-gray-600 "
                   type="text"
                   placeholder="Value"
