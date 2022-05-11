@@ -5,27 +5,27 @@ const optionsList = (props) => {
   };
   return (
     <div className="header">
-      <ul className="text-gray-400 list-none flex m-2 ">
+      <ul className="text-black dark:text-gray-400 list-none flex m-2 ">
         <li
-          className="p-2 hover:text-white hover:underline cursor-pointer"
+          className="p-2 hover:text-gray-500 dark:hover:text-white hover:underline cursor-pointer"
           onClick={() => handleTab('parameter')}
         >
           Parameters
         </li>
         <li
-          className="p-2 hover:text-white hover:underline cursor-pointer"
+          className="p-2 hover:text-gray-500 dark:hover:text-white hover:underline cursor-pointer"
           onClick={() => handleTab('body')}
         >
           Body
         </li>
         <li
-          className="p-2 hover:text-white hover:underline cursor-pointer"
+          className="p-2 hover:text-gray-500 dark:hover:text-white hover:underline cursor-pointer"
           onClick={() => handleTab('header')}
         >
           Headers
         </li>
         <li
-          className="p-2 hover:text-white hover:underline cursor-pointer"
+          className="p-2 hover:text-gray-500 dark:hover:text-white hover:underline cursor-pointer"
           onClick={() => handleTab('authorization')}
         >
           Authorization

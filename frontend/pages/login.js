@@ -1,4 +1,8 @@
+<<<<<<< HEAD
  import Link from 'next/link';
+=======
+import Link from 'next/link';
+>>>>>>> 7036daf4bb59b3f6026ca7f48dae4b5f93305715
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axiosInstance from '../axios';

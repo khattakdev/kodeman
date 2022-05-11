@@ -1,8 +1,14 @@
 // @TODO: Remove eslint-disable later
 /* eslint-disable no-console */
+<<<<<<< HEAD
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+=======
+import { useState } from 'react';
+import axios from 'axios';
+// import { useRouter } from 'next/router';
+>>>>>>> 7036daf4bb59b3f6026ca7f48dae4b5f93305715
 import ApiHeader from '../components/ApiHeader';
 import Layout from '../components/Layout';
 import Parameters from '../components/ApiHeader/inner-components/Parameter';
@@ -12,7 +18,11 @@ import Header from '../components/ApiHeader/inner-components/Header';
 import Response from '../components/ApiHeader/inner-components/Response';
 
 const ApiTesting = () => {
+<<<<<<< HEAD
   const router = useRouter();
+=======
+  // const router = useRouter();
+>>>>>>> 7036daf4bb59b3f6026ca7f48dae4b5f93305715
   const [currentOption, setCurrentOption] = useState('parameter');
   const [apiMethod, setApiMethod] = useState('get');
   const [apiUrl, setApiUrl] = useState('');
@@ -27,10 +37,17 @@ const ApiTesting = () => {
   const [body, setBody] = useState('');
   const [res, setRes] = useState(undefined);
 
+<<<<<<< HEAD
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) router.replace('/login');
   }, []);
+=======
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if (!token) router.replace('/login');
+  // }, []);
+>>>>>>> 7036daf4bb59b3f6026ca7f48dae4b5f93305715
   async function sendApiInput() {
     // console.log(apiUrl); ✅
     // console.log(apiMethod); ✅
@@ -82,7 +99,11 @@ const ApiTesting = () => {
   }
 
   return (
+<<<<<<< HEAD
     <Layout classes="main bg-gray-900">
+=======
+    <Layout classes="main bg-gray-300 dark:bg-gray-900 dark:text-white">
+>>>>>>> 7036daf4bb59b3f6026ca7f48dae4b5f93305715
       <div className="flex flex-row flex-wrap">
         <select
           defaultValue={'apiMethod'}
@@ -99,7 +120,11 @@ const ApiTesting = () => {
         </select>
         <input
           name="Api-URL"
+<<<<<<< HEAD
           className="border-2 border-gray-500 bg-gray-800 text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
+=======
+          className="border-2 border-gray-400  bg-gray-200 text-black dark:border-gray-500  dark:bg-gray-800 dark:text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
+>>>>>>> 7036daf4bb59b3f6026ca7f48dae4b5f93305715
           type="text"
           placeholder="http://localhost:3000"
           value={apiUrl}
@@ -111,7 +136,11 @@ const ApiTesting = () => {
         <button
           className={`${
             apiUrl === ''
+<<<<<<< HEAD
               ? 'bg-gray-700 cursor-not-allowed'
+=======
+              ? 'bg-gray-400  dark:bg-gray-700 cursor-not-allowed'
+>>>>>>> 7036daf4bb59b3f6026ca7f48dae4b5f93305715
               : 'bg-blue-700 hover:bg-blue-600'
           } text-white my-2 p-2 px-4 rounded-sm  border-2 border-blue-400`}
           onClick={() => {

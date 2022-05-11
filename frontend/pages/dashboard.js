@@ -1,4 +1,5 @@
 import Layout from '../components/Layout';
+<<<<<<< HEAD
 import { useState } from 'react';
 import LineChart from '../components/Charts/BarChart';
 import PieChart from '../components/Charts/PieChart';
@@ -120,4 +121,20 @@ const Dashboard = () => {
     </Layout>
   );
 };
+=======
+
+function Dashboard() {
+  return (
+    <Layout>
+      <div
+        className={
+          'bg-gray-300 text-black dark:bg-gray-900 dark:text-white  h-72 p-8'
+        }
+      >
+        You are now in Dashboard
+      </div>
+    </Layout>
+  );
+}
+>>>>>>> 7036daf4bb59b3f6026ca7f48dae4b5f93305715
 export default Dashboard;
