@@ -82,7 +82,6 @@ const Settings = () => {
               Current Theme - {theme === 'dark' ? 'Dark' : 'Light'}
             </h1>
           </div>
-          <div>Access Token: {session}</div>
           {!session && (
             <button
               onClick={signIn}
