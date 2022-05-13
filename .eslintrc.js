@@ -21,6 +21,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     'import/no-unresolved': 'off', // @TODO: have to fix this later
+    'import/no-named-as-default': 0,
   },
   plugins: ['prettier'],
 };
