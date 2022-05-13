@@ -8,13 +8,15 @@ import axios from '../axios';
 
 function createAPI() {
   const [option, setOption] = useState(1);
+  const [apiNumber, setApiNumber] = useState(0);
   const [models, setAPIModels] = useState([[]]);
   const [_API, _setAPI] = useState([]);
-  const [apiMethod, setApiMethod] = useState('get');
-  const [dbValue, setDbValues] = useState([]);
-  const [apiUrl, setApiUrl] = useState('');
-  const [projectName, setProjectName] = useState('kodename');
-  const [responseMessage, setResponseMessage] = useState('');
+  const [apiMethod, setApiMethod] = useState(['get']);
+  const [dbValue, setDbValues] = useState([[]]);
+  const [apiUrl, setApiUrl] = useState(['']);
+  const [apiUrlList, setApiUrlList] = useState([]);
+  const [projectName, setProjectName] = useState('Kodeman');
+  const [responseMessage, setResponseMessage] = useState(['']);
 
   const addNewModel = () => {
     const updatedAPIModel = [...models];
@@ -32,27 +34,39 @@ function createAPI() {
       >
         <div className="flex justify-between">
           <div>
-            <Button
-              onClick={() => {
-                const newOption = option - 1;
-                setOption(newOption);
-              }}
-            >
-              Previous
-            </Button>
+            {option >= 1 && (
+              <Button
+                onClick={() => {
+                  const newOption = option - 1;
+                  if (newOption !== 0) setOption(newOption);
+                }}
+              >
+                Previous
+              </Button>
+            )}
           </div>
           <div>
-            <Button
-              onClick={() => {
-                const newOption = option + 1;
-                setOption(newOption);
-              }}
-            >
-              Next
-            </Button>
+            {option <= 4 && (
+              <Button
+                onClick={() => {
+                  const newOption = option + 1;
+                  setOption(newOption);
+
+                  if (option === 2) {
+                    const updatedApiUrlList = apiUrlList;
+                    updatedApiUrlList.push(apiUrl);
+                    setApiUrlList(updatedApiUrlList);
+                    // setApiUrl('');
+                  }
+                }}
+              >
+                Next
+              </Button>
+            )}
           </div>
         </div>
-        CUTOM OR PRESET {option}
+        <p>Total APIs Created: {apiNumber}</p>
+        CUSTOM OR PRESET {option}
         {/* 
           PRESET 
             OR  
@@ -66,32 +80,26 @@ function createAPI() {
         {option === 1 && (
           <>
             <div>
-              <input
-                name="Api-URL"
-                className="border-2 border-gray-500 bg-gray-800 text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
-                type="text"
-                placeholder="Kodeman"
-                value={projectName}
-                onChange={(e) => {
-                  const updatedProjectName = e.target.value;
-                  setProjectName(updatedProjectName);
-                }}
-              />
-              <Button
-                onClick={() => {
-                  const project = JSON.stringify({
-                    projectName,
-                  });
-                  localStorage.setItem('kodeman_project', project);
-                }}
-              >
-                Create new project
-              </Button>
+              <div className="flex items-center my-8">
+                <h2 className="text-lg">Project name: </h2>
+                <input
+                  name="Api-URL"
+                  className="border-2 border-gray-500 bg-gray-800 text-white m-2 px-4 rounded-sm my-2 py-2 w-60"
+                  type="text"
+                  placeholder="Kodeman"
+                  value={projectName}
+                  onChange={(e) => {
+                    const updatedProjectName = e.target.value;
+                    setProjectName(updatedProjectName);
+                  }}
+                />
+              </div>
             </div>
             <div>
-              <h2 onClick={addNewModel}>Create a new model</h2>
+              <Button classes="my-8" onClick={addNewModel}>
+                Create a new model
+              </Button>
               {models.map((model, index) => (
-                // <h2 key={index}>{index}</h2>
                 <APIModels
                   key={index}
                   id={index}
@@ -107,8 +115,14 @@ function createAPI() {
         {option === 2 && (
           <div className="flex flex-row flex-wrap">
             <select
-              defaultValue={apiMethod}
-              onChange={(e) => setApiMethod(e.target.value)}
+              defaultValue={apiMethod[apiNumber]}
+              onChange={(e) => {
+                const input = e.target.value;
+                const updatedApiMethod = [...apiMethod];
+                updatedApiMethod[apiNumber] = input;
+                console.log(updatedApiMethod);
+                setApiMethod(updatedApiMethod);
+              }}
               id=""
               className="border-blue-400 border bg-blue-700 text-white m-2 ml-2 my-2 px-4 py-2 rounded-sm hover:bg-blue-600"
             >
@@ -124,16 +138,23 @@ function createAPI() {
               className="border-2 border-gray-500 bg-gray-800 text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
               type="text"
               placeholder="/user/login"
-              value={apiUrl}
+              value={apiUrl[apiNumber]}
               onChange={(e) => {
-                const apiInput = e.target.value;
-                setApiUrl(apiInput);
+                const input = e.target.value;
+                const updatedApiUrl = [...apiUrl];
+                updatedApiUrl[apiNumber] = input;
+                console.log(updatedApiUrl);
+                setApiUrl(updatedApiUrl);
               }}
             />
           </div>
         )}
         {option === 3 && (
-          <DatabaseValues dbValue={dbValue} setDbValues={setDbValues} />
+          <DatabaseValues
+            apiNumber={apiNumber}
+            dbValue={dbValue}
+            setDbValues={setDbValues}
+          />
         )}
         {option === 4 && (
           <input
@@ -141,10 +162,12 @@ function createAPI() {
             className="border-2 border-gray-500 bg-gray-800 text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
             type="text"
             placeholder="Response Message"
-            value={responseMessage}
+            value={responseMessage[apiNumber]}
             onChange={(e) => {
               const input = e.target.value;
-              setResponseMessage(input);
+              const updatedResponseMessage = [...responseMessage];
+              updatedResponseMessage[apiNumber] = input;
+              setResponseMessage(updatedResponseMessage);
             }}
           />
         )}
@@ -161,9 +184,13 @@ function createAPI() {
         {option === 5 && (
           <APICreation
             dbValue={dbValue}
+            setDbValues={setDbValues}
             responseMessage={responseMessage}
             apiMethod={apiMethod}
             apiUrl={apiUrl}
+            setApiUrl={setApiUrl}
+            apiNumber={apiNumber}
+            setApiNumber={setApiNumber}
             setOption={setOption}
             _API={_API}
             _setAPI={_setAPI}

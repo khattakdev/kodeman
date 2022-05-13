@@ -28,19 +28,18 @@ const APIModel = (props) => {
 
   function deleteModelObject(index) {
     const currentAPIModel = [...apiModel];
-    console.log(currentAPIModel);
     currentAPIModel[key] = [...apiModel][key].filter(
       (_, paramIndex) => paramIndex !== index
     );
-
     console.log(currentAPIModel);
+
     setAPIModel(currentAPIModel);
   }
   return (
     <div>
       <div className="flex flex-row justify-between">
         <h1 className="text-gray-500 px-4 flex content-start">
-          Database Model
+          Model name: |INPUT|
         </h1>
         <div className="flex justify-self-end">
           <img
@@ -74,8 +73,8 @@ const APIModel = (props) => {
                   value={apiModel[key][index].name}
                   onChange={(e) => {
                     const currentValue = e.target.value;
-                    const currentAPIModels = [...apiModel[key]];
-                    currentAPIModels[index].name = currentValue;
+                    const currentAPIModels = [...apiModel];
+                    currentAPIModels[key][index].name = currentValue;
                     setAPIModel(currentAPIModels);
                   }}
                 />
@@ -88,7 +87,7 @@ const APIModel = (props) => {
                   onChange={(e) => {
                     const currentValue = e.target.value;
                     const currentAPIModels = [...apiModel];
-                    currentAPIModels[index].defaultValue = currentValue;
+                    currentAPIModels[key][index].defaultValue = currentValue;
                     setAPIModel(currentAPIModels);
                   }}
                 />
@@ -96,8 +95,8 @@ const APIModel = (props) => {
                 <select
                   onChange={(e) => {
                     const currentParameter = e.target.value;
-                    const currentQueryParams = [...apiModel[key]];
-                    currentQueryParams[index].required = currentParameter;
+                    const currentQueryParams = [...apiModel];
+                    currentQueryParams[key][index].required = currentParameter;
                     setAPIModel(currentQueryParams);
                   }}
                   placeholder="Required"
@@ -109,8 +108,8 @@ const APIModel = (props) => {
                 <select
                   onChange={(e) => {
                     const currentParameter = e.target.value;
-                    const currentQueryParams = [...apiModel[key]];
-                    currentQueryParams[index].placement = currentParameter;
+                    const currentQueryParams = [...apiModel];
+                    currentQueryParams[key][index].placement = currentParameter;
                     setAPIModel(currentQueryParams);
                   }}
                   placeholder="Required"
