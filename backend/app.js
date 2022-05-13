@@ -1,12 +1,26 @@
 const mongoose = require('mongoose');
+const path = require('path');
+const { zip } = require('zip-a-folder');
 require('dotenv').config();
 const fastify = require('fastify')({
   logger: true,
 });
 
+fastify.register(require('fastify-static'), {
+  root: path.join(__dirname, 'temp'),
+});
+
 fastify.get('/', async (request, reply) => {
   reply.type('application/json').code(200);
   return { hello: 'world' };
+});
+
+fastify.post('/download', async (request, reply) => {
+  const { projectName } = request.body;
+  const destination = path.join(__dirname, 'temp', `${projectName}.zip`);
+  await zip(path.join(__dirname, 'template'), destination);
+
+  reply.send(destination);
 });
 fastify.register(require('fastify-cors'), {
   origin: '*',

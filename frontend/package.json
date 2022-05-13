@@ -13,6 +13,7 @@
     "@heroicons/react": "^1.0.5",
     "axios": "^0.24.0",
     "chart.js": "^3.7.1",
+    "file-saver": "^2.0.5",
     "next": "11.1.2",
     "next-auth": "^4.2.1",
     "next-themes": "^0.1.1",
