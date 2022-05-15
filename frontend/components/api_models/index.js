@@ -13,7 +13,6 @@ const APIModels = (props) => {
       },
     ]);
     counter += 1;
-    console.log(currentAPIModel);
     setAPIModel(currentAPIModel);
   };
   return (

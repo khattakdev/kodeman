@@ -9,24 +9,9 @@ const DatabaseValues = (props) => {
     // console.log(newQueryParams);
     newQueryParams[index].push({
       name: '',
-      // type: 'get',
-      // defaultValue: '',
       required: false,
       placement: 'body',
     });
-    // const newQueryParams = [
-    //   ...dbValue,
-    //   {
-    //     name: '',
-    //     // type: 'get',
-    //     // defaultValue: '',
-    //     required: false,
-    //     placement: 'body',
-    //   },
-    // ];
-
-    console.log(newQueryParams[apiNumber]);
-    console.log(newQueryParams[apiNumber].length);
 
     setDbValues(newQueryParams);
   }
@@ -37,7 +22,6 @@ const DatabaseValues = (props) => {
       (_, paramIndex) => paramIndex !== index
     );
     newDbValue[apiNumber] = currentDbValues;
-    console.log(newDbValue);
     setDbValues(newDbValue);
   }
 

@@ -9,7 +9,7 @@ class BarChart extends Component {
 
   componentDidMount() {
     const ctx = this.chartRef.current;
-    const {data} = this.props;
+    const { data } = this.props;
     Chart(ctx, {
       type: 'bar',
       data: {
