@@ -1,8 +1,12 @@
 import Button from '../Layout/Button';
+import axiosInstance from '../../axios';
 
 const APICreation = (props) => {
   const {
-    // models,
+    modelForAPI,
+    projectName,
+    modelNames,
+    models,
     dbValue,
     setDbValues,
     responseMessage,
@@ -14,13 +18,27 @@ const APICreation = (props) => {
     setApiNumber,
   } = props;
 
+  async function downloadProject() {
+    const data = {
+      modelForAPI,
+      projectName,
+      modelNames,
+      models,
+      dbValue,
+      responseMessage,
+      apiMethod,
+      apiUrl,
+    };
+
+    const res = await axiosInstance.post('/download', data);
+
+    if (res.status === 200) {
+      console.log(res.data);
+    }
+  }
+
   return (
     <>
-      <h2>Creating API</h2>
-      <p>{apiUrl}</p>
-      <p>{apiMethod}</p>
-      <p>{responseMessage}</p>
-
       <Button
         classes="my-8"
         onClick={() => {
@@ -40,13 +58,7 @@ const APICreation = (props) => {
         Create a new API Endpoint
       </Button>
 
-      <p
-        onClick={() => {
-          setOption(6);
-        }}
-      >
-        Finish Project
-      </p>
+      <p onClick={downloadProject}>Finish Project</p>
     </>
   );
 };

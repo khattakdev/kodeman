@@ -10,6 +10,7 @@ function createAPI() {
   const [apiNumber, setApiNumber] = useState(0);
   const [modelNames, setModelNames] = useState(['']);
   const [models, setAPIModels] = useState([[]]);
+  const [modelForAPI, setModelForAPI] = useState(['']);
   const [_API, _setAPI] = useState([]);
   const [apiMethod, setApiMethod] = useState(['get']);
   const [dbValue, setDbValues] = useState([[]]);
@@ -151,6 +152,19 @@ function createAPI() {
                   setApiUrl(updatedApiUrl);
                 }}
               />
+              <input
+                name="Api-URL"
+                className="border-2 border-gray-500 bg-gray-800 text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
+                type="text"
+                placeholder="users"
+                value={modelForAPI[apiNumber]}
+                onChange={(e) => {
+                  const input = e.target.value;
+                  const updatedModelForAPI = [...modelForAPI];
+                  updatedModelForAPI[apiNumber] = input;
+                  setModelForAPI(updatedModelForAPI);
+                }}
+              />
             </div>
             <Button classes="my-8 mx-4" onClick={addNewModel}>
               Login API
@@ -197,7 +211,10 @@ function createAPI() {
         )}
         {option === 5 && (
           <APICreation
+            modelForAPI={modelForAPI}
+            projectName={projectName}
             models={models}
+            modelNames={modelNames}
             dbValue={dbValue}
             setDbValues={setDbValues}
             responseMessage={responseMessage}
