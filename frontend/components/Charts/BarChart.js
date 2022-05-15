@@ -10,7 +10,7 @@ class BarChart extends Component {
   componentDidMount() {
     const ctx = this.chartRef.current;
     const { data } = this.props;
-    Chart(ctx, {
+    new Chart(ctx, {
       type: 'bar',
       data: {
         labels: [

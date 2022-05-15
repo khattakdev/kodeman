@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import router from 'next/router';
+import { HomeIcon ,PencilAltIcon ,CodeIcon , DocumentTextIcon , AdjustmentsIcon } from '@heroicons/react/solid';
 
 function Layout({ children, classes }) {
   return (
@@ -32,29 +33,49 @@ function Layout({ children, classes }) {
             'w-42 h-screen -mt-14 p-4 pt-32 flex flex-col uppercase font-bold'
           }
         >
-          <li className="mb-4 cursor-pointer hover:underline">
+          <li className="mb-4 cursor-pointer  hover:underline">
             <Link href="/dashboard">
-              <a>Dashboard</a>
+            <p className="flex items-center">
+            <HomeIcon className="h-8 w-8 mr-2 my-auto cursor-pointer"
+            role='link'
+            />
+            Dashboard</p>
             </Link>
           </li>
           <li className="mb-4 cursor-pointer hover:underline">
             <Link href="/testing">
-              <a>API Testing</a>
+            <p className="flex items-center">
+            <PencilAltIcon className="h-8 w-8 mr-2 my-auto cursor-pointer"
+            role='link'
+            />
+            API Testing</p>
             </Link>
           </li>
           <li className="mb-4 cursor-pointer hover:underline">
             <Link href="/create">
-              <a>Create API</a>
+            <p className="flex items-center">
+            <CodeIcon className="h-8 w-8 mr-2 my-auto cursor-pointer"
+            role='link'
+            />
+            API Creation</p>
             </Link>
           </li>
           <li className="mb-4 cursor-pointer hover:underline">
             <Link href="/docs">
-              <a>Documentation</a>
+            <p className="flex items-center">
+            <DocumentTextIcon className="h-8 w-8 mr-2 my-auto cursor-pointe"
+            role='link'
+            />
+            Documentation</p>
             </Link>
           </li>
           <li className="mb-4 cursor-pointer hover:underline">
             <Link href="/settings">
-              <a>Settings</a>
+            <p className="flex items-center">
+            <AdjustmentsIcon className="h-8 w-8 mr-2 my-auto cursor-pointe"
+            role='link'
+            />
+            Settings</p>
             </Link>
           </li>
         </ul>

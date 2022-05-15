@@ -10,7 +10,7 @@ class PieChart extends Component {
   componentDidMount() {
     const ctx = this.chartRef.current;
     const { data } = this.props;
-    Chart(ctx, {
+   new Chart(ctx, {
       type: 'pie',
       data: {
         labels: ['APIs Created', 'APIs Tested'],
@@ -27,7 +27,7 @@ class PieChart extends Component {
       options: {
         layout: {
           padding: {
-            bottom: 175,
+            bottom: 225,
           },
         },
       },
