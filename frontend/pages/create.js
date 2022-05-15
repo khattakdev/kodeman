@@ -4,11 +4,11 @@ import Button from '../components/Layout/Button';
 import DatabaseValues from '../components/DatabaseValues';
 import APICreation from '../components/api_creation';
 import APIModels from '../components/api_models/model';
-import axios from '../axios';
 
 function createAPI() {
   const [option, setOption] = useState(1);
   const [apiNumber, setApiNumber] = useState(0);
+  const [modelNames, setModelNames] = useState(['']);
   const [models, setAPIModels] = useState([[]]);
   const [_API, _setAPI] = useState([]);
   const [apiMethod, setApiMethod] = useState(['get']);
@@ -19,9 +19,12 @@ function createAPI() {
   const [responseMessage, setResponseMessage] = useState(['']);
 
   const addNewModel = () => {
+    const updatedModelNames = [...modelNames];
     const updatedAPIModel = [...models];
+    updatedModelNames.push('');
     updatedAPIModel.push([]);
 
+    setModelNames(updatedModelNames);
     setAPIModels(updatedAPIModel);
   };
   return (
@@ -104,6 +107,8 @@ function createAPI() {
                   key={index}
                   id={index}
                   apiModel={models}
+                  modelNames={modelNames}
+                  setModelNames={setModelNames}
                   setAPIModel={setAPIModels}
                 />
               ))}
@@ -113,40 +118,49 @@ function createAPI() {
           </>
         )}
         {option === 2 && (
-          <div className="flex flex-row flex-wrap">
-            <select
-              defaultValue={apiMethod[apiNumber]}
-              onChange={(e) => {
-                const input = e.target.value;
-                const updatedApiMethod = [...apiMethod];
-                updatedApiMethod[apiNumber] = input;
-                console.log(updatedApiMethod);
-                setApiMethod(updatedApiMethod);
-              }}
-              id=""
-              className="border-blue-400 border bg-blue-700 text-white m-2 ml-2 my-2 px-4 py-2 rounded-sm hover:bg-blue-600"
-            >
-              <option value="get">GET</option>
-              <option value="post">POST</option>
-              <option value="put">PUT</option>
-              <option value="patch">PATCH</option>
-              <option value="delete">DELETE</option>
-              <option value="head">HEAD</option>
-            </select>
-            <input
-              name="Api-URL"
-              className="border-2 border-gray-500 bg-gray-800 text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
-              type="text"
-              placeholder="/user/login"
-              value={apiUrl[apiNumber]}
-              onChange={(e) => {
-                const input = e.target.value;
-                const updatedApiUrl = [...apiUrl];
-                updatedApiUrl[apiNumber] = input;
-                console.log(updatedApiUrl);
-                setApiUrl(updatedApiUrl);
-              }}
-            />
+          <div>
+            <div className="flex flex-row flex-wrap">
+              <select
+                defaultValue={apiMethod[apiNumber]}
+                onChange={(e) => {
+                  const input = e.target.value;
+                  const updatedApiMethod = [...apiMethod];
+                  updatedApiMethod[apiNumber] = input;
+                  setApiMethod(updatedApiMethod);
+                }}
+                id=""
+                className="border-blue-400 border bg-blue-700 text-white m-2 ml-2 my-2 px-4 py-2 rounded-sm hover:bg-blue-600"
+              >
+                <option value="get">GET</option>
+                <option value="post">POST</option>
+                <option value="put">PUT</option>
+                <option value="patch">PATCH</option>
+                <option value="delete">DELETE</option>
+                <option value="head">HEAD</option>
+              </select>
+              <input
+                name="Api-URL"
+                className="border-2 border-gray-500 bg-gray-800 text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
+                type="text"
+                placeholder="/user/login"
+                value={apiUrl[apiNumber]}
+                onChange={(e) => {
+                  const input = e.target.value;
+                  const updatedApiUrl = [...apiUrl];
+                  updatedApiUrl[apiNumber] = input;
+                  setApiUrl(updatedApiUrl);
+                }}
+              />
+            </div>
+            <Button classes="my-8 mx-4" onClick={addNewModel}>
+              Login API
+            </Button>
+            <Button classes="my-8 mx-4" onClick={addNewModel}>
+              Sign in with GitHub
+            </Button>
+            <Button classes="my-8 mx-4" onClick={addNewModel}>
+              Login in with Google
+            </Button>
           </div>
         )}
         {option === 3 && (
@@ -171,7 +185,7 @@ function createAPI() {
             }}
           />
         )}
-        {option === 4 && apiMethod === 'get' && console.log(dbValue)}
+        {/* {option === 4 && apiMethod === 'get' && console.log(dbValue)} */}
         {option === 4 && apiMethod === 'post' && (
           <h2>POST METHOD / Save the data </h2>
         )}
@@ -183,6 +197,7 @@ function createAPI() {
         )}
         {option === 5 && (
           <APICreation
+            models={models}
             dbValue={dbValue}
             setDbValues={setDbValues}
             responseMessage={responseMessage}
@@ -197,7 +212,7 @@ function createAPI() {
           />
         )}
       </div>
-      <Button
+      {/* <Button
         onClick={async () => {
           const body = {
             projectName,
@@ -219,7 +234,7 @@ function createAPI() {
         }}
       >
         Download project
-      </Button>
+      </Button> */}
     </Layout>
   );
 }

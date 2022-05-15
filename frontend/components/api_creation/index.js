@@ -2,6 +2,7 @@ import Button from '../Layout/Button';
 
 const APICreation = (props) => {
   const {
+    // models,
     dbValue,
     setDbValues,
     responseMessage,
@@ -19,7 +20,6 @@ const APICreation = (props) => {
       <p>{apiUrl}</p>
       <p>{apiMethod}</p>
       <p>{responseMessage}</p>
-      {console.log(dbValue)}
 
       <Button
         classes="my-8"

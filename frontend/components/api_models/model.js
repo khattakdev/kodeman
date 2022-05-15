@@ -1,7 +1,7 @@
 import React from 'react';
 
 const APIModel = (props) => {
-  const { id, apiModel, setAPIModel } = props;
+  const { id, apiModel, setAPIModel, modelNames, setModelNames } = props;
 
   const key = id;
 
@@ -31,7 +31,6 @@ const APIModel = (props) => {
     currentAPIModel[key] = [...apiModel][key].filter(
       (_, paramIndex) => paramIndex !== index
     );
-    console.log(currentAPIModel);
 
     setAPIModel(currentAPIModel);
   }
@@ -39,7 +38,19 @@ const APIModel = (props) => {
     <div>
       <div className="flex flex-row justify-between">
         <h1 className="text-gray-500 px-4 flex content-start">
-          Model name: |INPUT|
+          Model name:{' '}
+          <input
+            className="m-2 p-2 w-2/4 bg-gray-800 text-gray-300 border border-gray-600 "
+            type="Name"
+            placeholder="Property name"
+            value={modelNames[key]}
+            onChange={(e) => {
+              const currentValue = e.target.value;
+              const updatedModelName = [...modelNames];
+              updatedModelName[key] = currentValue;
+              setModelNames(updatedModelName);
+            }}
+          />
         </h1>
         <div className="flex justify-self-end">
           <img
