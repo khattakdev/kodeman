@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 app.use('/', routes);
 connectDB(() => {
-  app.listen(8080);
+  app.listen(8081);
 });
 
 app.listen(port, console.log('Server Started!'));
