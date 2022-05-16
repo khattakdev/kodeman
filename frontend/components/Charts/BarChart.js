@@ -10,7 +10,8 @@ class BarChart extends Component {
   componentDidMount() {
     const ctx = this.chartRef.current;
     const { data } = this.props;
-    Chart(ctx, {
+    // eslint-disable-next-line no-new
+    new Chart(ctx, {
       type: 'bar',
       data: {
         labels: [
