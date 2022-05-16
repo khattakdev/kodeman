@@ -89,7 +89,7 @@ function createModels(modelNames, models) {
 function checkForPassword(apiUrl) {
   if (apiUrl === '/login') {
     return `
-    if (item.password !== password) {
+    if (item[0].password !== password) {
         return res.status(401).json({
           error: ['Invalid password'],
         });
@@ -120,7 +120,7 @@ function createController(
   if (currentApiMethod === 'get') {
     let variables = '';
 
-    const token = apiUrl[index] === '/login' ? 'token' : 'tttt';
+    const token = apiUrl[index] === '/login' ? 'token' : '';
     for (let i = 0; i < currentDbValue.length; i++) {
       variables += `const ${currentDbValue[i].name} = req.${currentDbValue[i].placement}.${currentDbValue[i].name};
         `;
@@ -188,6 +188,73 @@ ${recordData}
       })
     }
       `;
+  } else if (currentApiMethod === 'delete') {
+    let variables = '';
+
+    for (let i = 0; i < currentDbValue.length; i++) {
+      variables += `const ${currentDbValue[i].name} = req.${currentDbValue[i].placement}.${currentDbValue[i].name};
+        `;
+    }
+    return `
+      async (req, res) => {
+        try {
+            ${variables}
+          let item = await ${capitalize(modelForAPI[index])}.find({ ${
+      currentDbValue[0].name
+    }
+      });
+
+      if (item.length === 0) {
+        return res.status(401).json({
+          error: ["Record not found"]
+        });
+      }
+
+      await item[0].remove();
+
+      return res.status(200).json({
+        msg: "Item Removed!",
+        item
+    })
+}
+      `;
+  } else if (currentApiMethod === 'put') {
+    let variables = '';
+    let recordData = '';
+
+    for (let i = 0; i < currentDbValue.length; i++) {
+      variables += `const ${currentDbValue[i].name} = req.${currentDbValue[i].placement}.${currentDbValue[i].name};
+        `;
+      recordData += `${`${currentDbValue[i].name},`}`;
+    }
+    return `
+      async (req, res) => {
+        try {
+            ${variables}
+
+            const updatedItems = new ${capitalize(modelForAPI[index])}({
+                ${recordData}
+                      });
+
+          let item = await ${capitalize(
+            modelForAPI[index]
+          )}.findOneAndUpdate({ ${currentDbValue[0].name}, 
+      },  { $set: { ${recordData} } });
+
+      if (item.length === 0) {
+        return res.status(401).json({
+          error: ["Record not found"]
+        });
+      }
+
+
+      const savedItem = await item.save();
+      return res.status(200).json({
+          msg: "Item Saved!",
+          item: savedItem
+      })
+    }
+      `;
   }
   return '() => {}';
 }
@@ -195,10 +262,11 @@ ${recordData}
 async function createRouters(apiUrl, apiMethod, modelForAPI, dbValue) {
   let importedModels = '';
 
-  for (let i = 0; i < modelForAPI.length; i++) {
+  const uniqueModelForAPI = [...new Set(modelForAPI)];
+  for (let i = 0; i < uniqueModelForAPI.length; i++) {
     importedModels += `const ${capitalize(
-      modelForAPI[i]
-    )} = require("../model/${modelForAPI[i]}");
+      uniqueModelForAPI[i]
+    )} = require("../model/${uniqueModelForAPI[i]}");
 `;
   }
 
