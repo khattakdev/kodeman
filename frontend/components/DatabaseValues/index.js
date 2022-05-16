@@ -1,7 +1,6 @@
 import React from 'react';
 import { TrashIcon, PlusIcon, PlusCircleIcon } from '@heroicons/react/solid';
 
-
 const DatabaseValues = (props) => {
   const { dbValue, setDbValues, apiNumber } = props;
 
@@ -40,7 +39,7 @@ const DatabaseValues = (props) => {
           Database Values
         </h1>
         <div className="flex justify-self-end">
-        <TrashIcon
+          <TrashIcon
             className="mt-2 mx-4 h-8 w-8 cursor-pointer"
             role="button"
             onClick={() => deleteAllValues}
@@ -50,7 +49,6 @@ const DatabaseValues = (props) => {
             role="button"
             onClick={() => addNewValue()}
           />
-         
         </div>
       </div>
       <div className="flex border bg-gray-200 dark:bg-gray-800 border-gray-600 m-4 p-4 max-h-56 overflow-y-auto">
@@ -133,25 +131,23 @@ const DatabaseValues = (props) => {
                   <option value="auth">Authorization</option>
                 </select>
                 <div className="p-2">
-                <TrashIcon
-            className="mx-4 h-8 w-8 cursor-pointer"
-            role="button"
-            onClick={() => deleteValue(index)}
-          />
-                  
+                  <TrashIcon
+                    className="mx-4 h-8 w-8 cursor-pointer"
+                    role="button"
+                    onClick={() => deleteValue(index)}
+                  />
                 </div>
               </div>
             ))
           )}
           {dbValue[apiNumber].length === 0 ? (
             <button
-            onClick={() => addNewValue()}
-            className="rounded-sm flex my-4 flex-row border p-2 hover:bg-gray-500 bg-gray-400 text-black dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white"
-          >
-            <PlusIcon className="h-4 w-4 my-auto cursor-pointer" />
-            Add New
-          </button>
-           
+              onClick={() => addNewValue()}
+              className="rounded-sm flex my-4 flex-row border p-2 hover:bg-gray-500 bg-gray-400 text-black dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white"
+            >
+              <PlusIcon className="h-4 w-4 my-auto cursor-pointer" />
+              Add New
+            </button>
           ) : (
             ''
           )}

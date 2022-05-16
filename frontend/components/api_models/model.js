@@ -54,7 +54,7 @@ const APIModel = (props) => {
           />
         </h1>
         <div className="flex justify-self-end">
-        <TrashIcon
+          <TrashIcon
             className="mt-2 mx-4 h-8 w-8 cursor-pointer"
             role="button"
             onClick={deleteModel}
@@ -132,25 +132,23 @@ const APIModel = (props) => {
                   <option value="date">Date</option>
                 </select>
                 <div className="p-2">
-                <TrashIcon
-                className="mt-2 mx-4 h-8 w-8 cursor-pointer"
-                role="button"
-                onClick={() => deleteModelObject(index)}
-              />
-                 
+                  <TrashIcon
+                    className="mt-2 mx-4 h-8 w-8 cursor-pointer"
+                    role="button"
+                    onClick={() => deleteModelObject(index)}
+                  />
                 </div>
               </div>
             ))
           )}
           {apiModel[key].length === 0 ? (
             <button
-            onClick={() => addNewModelObject()}
-            className="rounded-sm flex my-4 flex-row border p-2 hover:bg-gray-500 bg-gray-400 text-black dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white"
-          >
-            <PlusIcon className="h-4 w-4 my-auto cursor-pointer" />
-            Add New
-          </button>
-            
+              onClick={() => addNewModelObject()}
+              className="rounded-sm flex my-4 flex-row border p-2 hover:bg-gray-500 bg-gray-400 text-black dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white"
+            >
+              <PlusIcon className="h-4 w-4 my-auto cursor-pointer" />
+              Add New
+            </button>
           ) : (
             ''
           )}

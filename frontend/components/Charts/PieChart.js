@@ -10,7 +10,8 @@ class PieChart extends Component {
   componentDidMount() {
     const ctx = this.chartRef.current;
     const { data } = this.props;
-   new Chart(ctx, {
+    // eslint-disable-next-line no-new
+    new Chart(ctx, {
       type: 'pie',
       data: {
         labels: ['APIs Created', 'APIs Tested'],

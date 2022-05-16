@@ -1,6 +1,12 @@
 import Link from 'next/link';
 import router from 'next/router';
-import { HomeIcon ,PencilAltIcon ,CodeIcon , DocumentTextIcon , AdjustmentsIcon } from '@heroicons/react/solid';
+import {
+  HomeIcon,
+  PencilAltIcon,
+  CodeIcon,
+  DocumentTextIcon,
+  AdjustmentsIcon,
+} from '@heroicons/react/solid';
 
 function Layout({ children, classes }) {
   return (
@@ -35,47 +41,57 @@ function Layout({ children, classes }) {
         >
           <li className="mb-4 cursor-pointer  hover:underline">
             <Link href="/dashboard">
-            <p className="flex items-center">
-            <HomeIcon className="h-8 w-8 mr-2 my-auto cursor-pointer"
-            role='link'
-            />
-            Dashboard</p>
+              <p className="flex items-center">
+                <HomeIcon
+                  className="h-8 w-8 mr-2 my-auto cursor-pointer"
+                  role="link"
+                />
+                Dashboard
+              </p>
             </Link>
           </li>
           <li className="mb-4 cursor-pointer hover:underline">
             <Link href="/testing">
-            <p className="flex items-center">
-            <PencilAltIcon className="h-8 w-8 mr-2 my-auto cursor-pointer"
-            role='link'
-            />
-            API Testing</p>
+              <p className="flex items-center">
+                <PencilAltIcon
+                  className="h-8 w-8 mr-2 my-auto cursor-pointer"
+                  role="link"
+                />
+                API Testing
+              </p>
             </Link>
           </li>
           <li className="mb-4 cursor-pointer hover:underline">
             <Link href="/create">
-            <p className="flex items-center">
-            <CodeIcon className="h-8 w-8 mr-2 my-auto cursor-pointer"
-            role='link'
-            />
-            API Creation</p>
+              <p className="flex items-center">
+                <CodeIcon
+                  className="h-8 w-8 mr-2 my-auto cursor-pointer"
+                  role="link"
+                />
+                API Creation
+              </p>
             </Link>
           </li>
           <li className="mb-4 cursor-pointer hover:underline">
             <Link href="/docs">
-            <p className="flex items-center">
-            <DocumentTextIcon className="h-8 w-8 mr-2 my-auto cursor-pointe"
-            role='link'
-            />
-            Documentation</p>
+              <p className="flex items-center">
+                <DocumentTextIcon
+                  className="h-8 w-8 mr-2 my-auto cursor-pointe"
+                  role="link"
+                />
+                Documentation
+              </p>
             </Link>
           </li>
           <li className="mb-4 cursor-pointer hover:underline">
             <Link href="/settings">
-            <p className="flex items-center">
-            <AdjustmentsIcon className="h-8 w-8 mr-2 my-auto cursor-pointe"
-            role='link'
-            />
-            Settings</p>
+              <p className="flex items-center">
+                <AdjustmentsIcon
+                  className="h-8 w-8 mr-2 my-auto cursor-pointe"
+                  role="link"
+                />
+                Settings
+              </p>
             </Link>
           </li>
         </ul>
