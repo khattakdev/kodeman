@@ -33,6 +33,55 @@ function copyFiles(destinationDir) {
   });
 }
 
+async function createREADME(
+  apiUrl,
+  apiMethod,
+  dbValue,
+  modelNames,
+  models,
+  destinationDir
+) {
+  const markdownFile = path.join(destinationDir, 'readme.md');
+
+  let modelForMarkDown = '';
+  let apisForMarkDown = '';
+
+  apiUrl.forEach((currentApiUrl, index) => {
+    const currentApiMethod = apiMethod[index];
+    const currentDbValue = dbValue[index];
+
+    if (currentApiMethod && currentApiUrl) {
+      apisForMarkDown += `
+      - ${currentApiUrl} - ${currentApiMethod}
+      > ${JSON.stringify(currentDbValue)}
+      `;
+    }
+  });
+
+  models.forEach((currentModel, index) => {
+    const currentModelName = modelNames[index];
+    if (currentModel && currentModelName) {
+      modelForMarkDown += `
+      - ${currentModelName}
+      > ${JSON.stringify(currentModel)}
+      `;
+    }
+  });
+
+  await writeFile(
+    markdownFile,
+    `
+# <center>Your Project Name</center>
+
+## Models
+${modelForMarkDown}
+
+## APIs
+${apisForMarkDown}
+`
+  );
+}
+
 function createModels(modelNames, models, destinationDir) {
   models.map(async (model, index) => {
     const modelName = modelNames[index];
@@ -438,6 +487,15 @@ const downloadProject = {
       apiMethod,
       modelForAPI,
       dbValue,
+      destinationDir
+    );
+
+    await createREADME(
+      apiUrl,
+      apiMethod,
+      dbValue,
+      modelNames,
+      models,
       destinationDir
     );
 
