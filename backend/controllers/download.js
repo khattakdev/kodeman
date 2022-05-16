@@ -259,6 +259,86 @@ ${recordData}
   return '() => {}';
 }
 
+// PassportJS generator
+async function createPassportJS(authWith) {
+  // Add headers
+  let headersForAuth = '';
+
+  let bodyForAuth = '';
+
+  authWith.forEach((auth) => {
+    if (auth === 'github') {
+      headersForAuth += `const GithubStrategy = require("passport-github2").Strategy;
+`;
+      bodyForAuth += `
+passport.use(
+        new GitHubStrategy(
+          {
+            clientID: GITHUB_CLIENT_ID,
+            clientSecret: GITHUB_CLIENT_SECRET,
+            callbackURL: "/auth/github/callback",
+          },
+          function (accessToken, refreshToken, profile, done) {
+            done(null, profile);
+          }
+        )
+      );
+`;
+    } else if (auth === 'google') {
+      headersForAuth += `const GoogleStrategy = require("passport-google-oauth20").Strategy;
+`;
+      bodyForAuth += `
+passport.use(
+        new GoogleStrategy(
+          {
+            clientID: GOOGLE_CLIENT_ID,
+            clientSecret: GOOGLE_CLIENT_SECRET,
+            callbackURL: "/auth/google/callback",
+          },
+          function (accessToken, refreshToken, profile, done) {
+            done(null, profile);
+          }
+        )
+      );
+`;
+    } else if (auth === 'facebook') {
+      headersForAuth += `const FacebookStrategy = require("passport-facebook").Strategy;
+`;
+      bodyForAuth += `
+passport.use(new FacebookStrategy({
+        clientID: FACEBOOK_APP_ID,
+        clientSecret: FACEBOOK_APP_SECRET,
+        callbackURL: "http://localhost:3000/auth/facebook/callback"
+      },
+      function(accessToken, refreshToken, profile, cb) {
+        User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+          return cb(err, user);
+        });
+      }
+    ));
+`;
+    }
+  });
+  console.log('Creating a file');
+  await writeFile(
+    path.join(destinationDir, 'middleware', `passport.js`),
+    `
+const passport = require("passport");
+${headersForAuth}
+${bodyForAuth}
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
+    `
+  );
+  // check for social media (GitHub, Facebook)
+}
+
 async function createRouters(apiUrl, apiMethod, modelForAPI, dbValue) {
   let importedModels = '';
 
@@ -316,6 +396,7 @@ const downloadProject = {
   handler: async (request, reply) => {
     const {
       //   projectName,
+      authWith,
       modelForAPI,
       modelNames,
       models,
@@ -331,6 +412,14 @@ const downloadProject = {
     copyFiles();
     // Create models
     createModels(modelNames, models);
+
+    console.log(authWith);
+    console.log('HELLO WORLD!!!');
+    console.log('HELLO WORLD!!!');
+    console.log('HELLO WORLD!!!');
+    if (authWith.length > 0) {
+      createPassportJS(authWith);
+    }
 
     createRouters(apiUrl, apiMethod, modelForAPI, dbValue);
 

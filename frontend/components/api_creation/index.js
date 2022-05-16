@@ -4,7 +4,9 @@ import axiosInstance from '../../axios';
 const APICreation = (props) => {
   const {
     modelForAPI,
-    projectName,
+    addedAuthWith,
+    setAddedAuthWith,
+    authWith,
     modelNames,
     models,
     dbValue,
@@ -21,7 +23,7 @@ const APICreation = (props) => {
   async function downloadProject() {
     const data = {
       modelForAPI,
-      projectName,
+      authWith,
       modelNames,
       models,
       dbValue,
@@ -42,16 +44,20 @@ const APICreation = (props) => {
       <Button
         classes="my-8"
         onClick={() => {
-          const updatedApiNumber = apiNumber + 1;
-          setApiNumber(updatedApiNumber);
-          const updatedApiUrl = [...apiUrl];
-          updatedApiUrl.push('');
-          setApiUrl(updatedApiUrl);
-          setOption(2);
+          if (addedAuthWith) {
+            setAddedAuthWith(false);
+          } else {
+            const updatedApiNumber = apiNumber + 1;
+            setApiNumber(updatedApiNumber);
+            const updatedApiUrl = [...apiUrl];
+            updatedApiUrl.push('');
+            setApiUrl(updatedApiUrl);
 
-          const updatedDbValues = [...dbValue];
-          updatedDbValues.push([]);
-          setDbValues(updatedDbValues);
+            const updatedDbValues = [...dbValue];
+            updatedDbValues.push([]);
+            setDbValues(updatedDbValues);
+          }
+          setOption(2);
           // @TODO: Add empty index to apiUrl, responseMessage, apiMethod, responseMessage
         }}
       >

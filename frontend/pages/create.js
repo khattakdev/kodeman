@@ -7,6 +7,9 @@ import APIModels from '../components/api_models/model';
 
 function createAPI() {
   const [option, setOption] = useState(1);
+  const [authWith, setAuthWith] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [addedAuthWith, setAddedAuthWith] = useState(false);
   const [apiNumber, setApiNumber] = useState(0);
   const [modelNames, setModelNames] = useState(['']);
   const [models, setAPIModels] = useState([[]]);
@@ -16,7 +19,7 @@ function createAPI() {
   const [dbValue, setDbValues] = useState([[]]);
   const [apiUrl, setApiUrl] = useState(['']);
   const [apiUrlList, setApiUrlList] = useState([]);
-  const [projectName, setProjectName] = useState('Kodeman');
+  // const [projectName, setProjectName] = useState('Kodeman');
   const [responseMessage, setResponseMessage] = useState(['']);
 
   const addNewModel = () => {
@@ -27,6 +30,14 @@ function createAPI() {
 
     setModelNames(updatedModelNames);
     setAPIModels(updatedAPIModel);
+  };
+
+  const addAuthWith = (type) => {
+    const updatedAuthWith = [...authWith];
+    updatedAuthWith.push(type);
+    setAuthWith(updatedAuthWith);
+    setAddedAuthWith(true);
+    setOption(5);
   };
   return (
     // @TODO: Create Models
@@ -69,21 +80,9 @@ function createAPI() {
             )}
           </div>
         </div>
-        <p>Total APIs Created: {apiNumber}</p>
-        CUSTOM OR PRESET {option}
-        {/* 
-          PRESET 
-            OR  
-          CUSTOM
-            HTTP METHOD ✅
-            ENDPOINT ✅
-            DB VALUES (NAME, TYPE, DEFAULT, REQUIRED)
-            GET IT FROM -> HEADER, BODY
-
-        */}
         {option === 1 && (
           <>
-            <div>
+            {/* <div>
               <div className="flex items-center my-8">
                 <h2 className="text-lg">Project name: </h2>
                 <input
@@ -98,7 +97,7 @@ function createAPI() {
                   }}
                 />
               </div>
-            </div>
+            </div> */}
             <div>
               <Button classes="my-8" onClick={addNewModel}>
                 Create a new model
@@ -141,9 +140,9 @@ function createAPI() {
               </select>
               <input
                 name="Api-URL"
-                className="border-2 border-gray-500 bg-gray-200 text-black dark:bg-gray-800 dark:text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
+                className="border-2 border-gray-500 bg-gray-200 text-black dark:bg-gray-800 dark:text-white m-2 px-4 rounded-sm my-2 py-2 w-1/4"
                 type="text"
-                placeholder="/user/login"
+                placeholder="API Endpoint e.g. /login"
                 value={apiUrl[apiNumber]}
                 onChange={(e) => {
                   const input = e.target.value;
@@ -154,9 +153,9 @@ function createAPI() {
               />
               <input
                 name="Api-URL"
-                className="border-2 border-gray-500 bg-gray-200 text-black dark:bg-gray-800 dark:text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
+                className="border-2 border-gray-500 bg-gray-200 text-black dark:bg-gray-800 dark:text-white m-2 px-4 rounded-sm my-2 py-2 w-1/4"
                 type="text"
-                placeholder="users"
+                placeholder="database for endpoint e.g. users"
                 value={modelForAPI[apiNumber]}
                 onChange={(e) => {
                   const input = e.target.value;
@@ -166,14 +165,14 @@ function createAPI() {
                 }}
               />
             </div>
-            <Button classes="my-8 mx-4" onClick={addNewModel}>
-              Login API
+            <Button classes="my-8 mx-4" onClick={() => addAuthWith('github')}>
+              Auth with GitHub
             </Button>
-            <Button classes="my-8 mx-4" onClick={addNewModel}>
-              Sign in with GitHub
+            <Button classes="my-8 mx-4" onClick={() => addAuthWith('google')}>
+              Auth with Google
             </Button>
-            <Button classes="my-8 mx-4" onClick={addNewModel}>
-              Login in with Google
+            <Button classes="my-8 mx-4" onClick={() => addAuthWith('facebook')}>
+              Auth with Facebook
             </Button>
           </div>
         )}
@@ -212,7 +211,9 @@ function createAPI() {
         {option === 5 && (
           <APICreation
             modelForAPI={modelForAPI}
-            projectName={projectName}
+            authWith={authWith}
+            addedAuthWith={setAddedAuthWith}
+            setAddedAuthWith={setAddedAuthWith}
             models={models}
             modelNames={modelNames}
             dbValue={dbValue}
