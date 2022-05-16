@@ -1,5 +1,6 @@
 /* eslint-disable no-plusplus */
-// const { zip } = require('zip-a-folder');
+const { zip } = require('zip-a-folder');
+const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 const fs = require('fs');
 const fsExtra = require('fs-extra');
@@ -19,8 +20,7 @@ function capitalize(str) {
 }
 
 const sourceDir = path.join(__dirname, '..', 'template');
-const destinationDir = path.join(__dirname, '..', 'temp', 'temporary');
-function copyFiles() {
+function copyFiles(destinationDir) {
   if (!fs.existsSync(destinationDir)) {
     fs.mkdirSync(destinationDir, { recursive: true });
   }
@@ -33,7 +33,7 @@ function copyFiles() {
   });
 }
 
-function createModels(modelNames, models) {
+function createModels(modelNames, models, destinationDir) {
   models.map(async (model, index) => {
     const modelName = modelNames[index];
     const schemaTop = `
@@ -153,16 +153,14 @@ function createController(
     let variables = '';
     let recordData = '';
 
-    const hashed =
-      apiUrl[index] === '/login'
-        ? `
-    
-const salt = await bcrypt.genSalt(10);
-const hashedPassword = await bcrypt.hash(password, salt);
-`
-        : '';
+    //     const hashed =
+    //       apiUrl[index] === '/login'
+    //         ? `
 
-    console.log(hashed);
+    // const salt = await bcrypt.genSalt(10);
+    // const hashedPassword = await bcrypt.hash(password, salt);
+    // `
+    //         : '';
 
     for (let i = 0; i < currentDbValue.length; i++) {
       variables += `const ${currentDbValue[i].name} = req.${currentDbValue[i].placement}.${currentDbValue[i].name};
@@ -260,7 +258,7 @@ ${recordData}
 }
 
 // PassportJS generator
-async function createPassportJS(authWith) {
+async function createPassportJS(authWith, destinationDir) {
   // Add headers
   let headersForAuth = '';
 
@@ -319,7 +317,7 @@ passport.use(new FacebookStrategy({
 `;
     }
   });
-  console.log('Creating a file');
+
   await writeFile(
     path.join(destinationDir, 'middleware', `passport.js`),
     `
@@ -339,7 +337,13 @@ passport.deserializeUser((user, done) => {
   // check for social media (GitHub, Facebook)
 }
 
-async function createRouters(apiUrl, apiMethod, modelForAPI, dbValue) {
+async function createRouters(
+  apiUrl,
+  apiMethod,
+  modelForAPI,
+  dbValue,
+  destinationDir
+) {
   let importedModels = '';
 
   const uniqueModelForAPI = [...new Set(modelForAPI)];
@@ -366,22 +370,26 @@ const isAuth = require('../Middleware/auth');
   apiUrl.map((url, index) => {
     const currentApiMethod = apiMethod[index];
     const currentDbValue = dbValue[index];
-    return fs.appendFileSync(
-      path.join(destinationDir, 'routes', `index.js`),
-      `
-      router.${currentApiMethod}("${url || '/'}" , ${createController(
-        currentApiMethod,
-        modelForAPI,
-        currentDbValue,
-        index,
-        apiUrl
-      )}
-    catch(err) {
-        return console.log(err)
+    console.log(currentApiMethod, currentDbValue);
+    if (currentApiMethod && currentDbValue) {
+      return fs.appendFileSync(
+        path.join(destinationDir, 'routes', `index.js`),
+        `
+        router.${currentApiMethod}("${url || '/'}" , ${createController(
+          currentApiMethod,
+          modelForAPI,
+          currentDbValue,
+          index,
+          apiUrl
+        )}
+          catch(err) {
+            return console.log(err)
+          }
+        })
+        `
+      );
     }
-    })
-      `
-    );
+    return '';
   });
 
   await appendFile(
@@ -394,6 +402,14 @@ const isAuth = require('../Middleware/auth');
 
 const downloadProject = {
   handler: async (request, reply) => {
+    const randomName = uuidv4();
+    const destinationDir = path.join(__dirname, '..', 'temp', 'temporary');
+    const destinationZipped = path.join(
+      __dirname,
+      '..',
+      'temp',
+      `${randomName}.zip`
+    );
     const {
       //   projectName,
       authWith,
@@ -409,24 +425,25 @@ const downloadProject = {
     // const destinationDir = path.join(__dirname, '..', 'temp', 'temporary');
 
     // Copy Template
-    copyFiles();
+    await copyFiles(destinationDir);
     // Create models
-    createModels(modelNames, models);
+    await createModels(modelNames, models, destinationDir);
 
-    console.log(authWith);
-    console.log('HELLO WORLD!!!');
-    console.log('HELLO WORLD!!!');
-    console.log('HELLO WORLD!!!');
     if (authWith.length > 0) {
-      createPassportJS(authWith);
+      await createPassportJS(authWith, destinationDir);
     }
 
-    createRouters(apiUrl, apiMethod, modelForAPI, dbValue);
+    await createRouters(
+      apiUrl,
+      apiMethod,
+      modelForAPI,
+      dbValue,
+      destinationDir
+    );
 
-    // const destination = path.join(__dirname, 'temp', `${projectName}.zip`);
-    // await zip(path.join(__dirname, 'template'), destination);
+    await zip(destinationDir, destinationZipped);
 
-    reply.send('http://localhost:3000/2321931.zip');
+    reply.send(`http://localhost:3000/${destinationZipped}`);
   },
 };
 

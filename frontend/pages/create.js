@@ -20,7 +20,7 @@ function createAPI() {
   const [apiUrl, setApiUrl] = useState(['']);
   const [apiUrlList, setApiUrlList] = useState([]);
   // const [projectName, setProjectName] = useState('Kodeman');
-  const [responseMessage, setResponseMessage] = useState(['']);
+  // const [responseMessage, setResponseMessage] = useState(['']);
 
   const addNewModel = () => {
     const updatedModelNames = [...modelNames];
@@ -183,7 +183,7 @@ function createAPI() {
             setDbValues={setDbValues}
           />
         )}
-        {option === 4 && (
+        {/* {option === 4 && (
           <input
             name="Api-Response"
             className="border-2 border-gray-500 bg-gray-200 text-black dark:bg-gray-800 dark:text-white m-2 px-4 rounded-sm my-2 py-2 w-3/4"
@@ -197,9 +197,9 @@ function createAPI() {
               setResponseMessage(updatedResponseMessage);
             }}
           />
-        )}
+        )} */}
         {/* {option === 4 && apiMethod === 'get' && console.log(dbValue)} */}
-        {option === 4 && apiMethod === 'post' && (
+        {/* {option === 4 && apiMethod === 'post' && (
           <h2>POST METHOD / Save the data </h2>
         )}
         {option === 4 && apiMethod === 'put' && (
@@ -207,18 +207,18 @@ function createAPI() {
         )}
         {option === 4 && apiMethod === 'delete' && (
           <h2>DELETE METHOD / Remove the Data</h2>
-        )}
-        {option === 5 && (
+        )} */}
+        {option === 4 && (
           <APICreation
             modelForAPI={modelForAPI}
             authWith={authWith}
-            addedAuthWith={setAddedAuthWith}
+            addedAuthWith={addedAuthWith}
             setAddedAuthWith={setAddedAuthWith}
             models={models}
             modelNames={modelNames}
             dbValue={dbValue}
             setDbValues={setDbValues}
-            responseMessage={responseMessage}
+            // responseMessage={responseMessage}
             apiMethod={apiMethod}
             apiUrl={apiUrl}
             setApiUrl={setApiUrl}

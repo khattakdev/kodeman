@@ -44,6 +44,7 @@ const APICreation = (props) => {
       <Button
         classes="my-8"
         onClick={() => {
+          console.log(addedAuthWith);
           if (addedAuthWith) {
             setAddedAuthWith(false);
           } else {
