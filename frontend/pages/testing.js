@@ -51,6 +51,8 @@ const ApiTesting = () => {
       };
     }
 
+    console.log(authorization);
+
     const reqHeaders = {};
     const reqParams = {};
     headers.forEach((header) => {
@@ -66,14 +68,25 @@ const ApiTesting = () => {
     if (reqParams) {
       params.params = reqParams;
     }
+    const processedBody = body
+      .substring(1, body.length - 1)
+      .split('\n')
+      .filter((content) => content !== '')
+      .map((content) => content.replaceAll('"', ''))
+      .map((content) => content.split(':'));
+
+    console.log(processedBody);
+
+    const bodyArrayToObj = {};
+    processedBody.forEach((content) => {
+      console.log(content);
+      // eslint-disable-next-line prefer-destructuring
+      bodyArrayToObj[content[0]] = content[1];
+    });
+    console.log(bodyArrayToObj);
     const beforeRes = new Date();
     const response = await axios[apiMethod](apiUrl, {
-      ...params,
-      ...body,
-      headers: {
-        ...reqHeaders,
-        ...authorization,
-      },
+      ...bodyArrayToObj,
     });
     const resTime = new Date() - beforeRes;
     response.time = resTime;

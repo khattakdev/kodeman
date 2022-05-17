@@ -37,7 +37,7 @@ function createAPI() {
     updatedAuthWith.push(type);
     setAuthWith(updatedAuthWith);
     setAddedAuthWith(true);
-    setOption(5);
+    setOption(4);
   };
   return (
     // @TODO: Create Models

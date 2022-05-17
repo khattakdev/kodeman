@@ -501,7 +501,7 @@ const downloadProject = {
 
     await zip(destinationDir, destinationZipped);
 
-    reply.send(`http://localhost:3000/${destinationZipped}`);
+    reply.send(`${destinationZipped}`);
   },
 };
 

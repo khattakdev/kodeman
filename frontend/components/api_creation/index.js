@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import Button from '../Layout/Button';
 import axiosInstance from '../../axios';
 
@@ -36,6 +37,7 @@ const APICreation = (props) => {
 
     if (res.status === 200) {
       console.log(res.data);
+      Router.push(res.data);
     }
   }
 
@@ -65,7 +67,9 @@ const APICreation = (props) => {
         Create a new API Endpoint
       </Button>
 
-      <p onClick={downloadProject}>Finish Project</p>
+      <Button classes="my-8" onClick={downloadProject}>
+        Finsih Project
+      </Button>
     </>
   );
 };
