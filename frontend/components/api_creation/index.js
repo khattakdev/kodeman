@@ -1,8 +1,10 @@
-import Router from 'next/router';
+// import Router from 'next/router';
+import { useState } from 'react';
 import Button from '../Layout/Button';
 import axiosInstance from '../../axios';
 
 const APICreation = (props) => {
+  const [downloadPath, setDownloadPath] = useState('');
   const {
     modelForAPI,
     addedAuthWith,
@@ -37,7 +39,8 @@ const APICreation = (props) => {
 
     if (res.status === 200) {
       console.log(res.data);
-      Router.push(res.data);
+      setDownloadPath(res.data);
+      // Router.push(res.data);
     }
   }
 
@@ -67,9 +70,10 @@ const APICreation = (props) => {
         Create a new API Endpoint
       </Button>
 
-      <Button classes="my-8" onClick={downloadProject}>
-        Finsih Project
+      <Button classes="my-8 ml-12" onClick={downloadProject}>
+        Finishh Project
       </Button>
+      <h2>{downloadPath}</h2>
     </>
   );
 };
